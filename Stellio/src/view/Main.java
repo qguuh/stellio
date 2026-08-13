@@ -197,7 +197,8 @@ public class Main extends JFrame {
 		btnFornecedores.setIcon(new ImageIcon(Main.class.getResource("/img/team.png")));
 		btnFornecedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+				frmFornecedor fornecedor = new frmFornecedor();
+				fornecedor.setVisible(true);			}
 		});
 		
 		// Remove as bordas 
@@ -243,23 +244,11 @@ public class Main extends JFrame {
 		contentPane.add(panelCard1);
 		panelCard1.setLayout(null);
 		
-		JLabel lblProduto = new JLabel("");
-		lblProduto.setHorizontalAlignment(SwingConstants.LEFT);
-		lblProduto.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblProduto.setIcon(new ImageIcon(Main.class.getResource("/img/box (1).png")));
-		lblProduto.setBounds(10, 11, 32, 44);
-		panelCard1.add(lblProduto);
-		
 		JPanel panelCard2 = new JPanel();
 		panelCard2.setBackground(new Color(210, 210, 210));
 		panelCard2.setBounds(434, 71, 185, 145);
 		contentPane.add(panelCard2);
 		panelCard2.setLayout(null);
-		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(Main.class.getResource("/img/alert (1).png")));
-		lblNewLabel_2.setBounds(10, 11, 32, 44);
-		panelCard2.add(lblNewLabel_2);
 		
 		JPanel panelCard3 = new JPanel();
 		panelCard3.setBackground(new Color(210, 210, 210));

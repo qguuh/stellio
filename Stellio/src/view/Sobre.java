@@ -89,7 +89,7 @@ public class Sobre extends JDialog {
 		});
 		lblGitLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblGitLink.setForeground(new Color(0, 51, 255));
-		lblGitLink.setBounds(63, 231, 103, 14);
+		lblGitLink.setBounds(63, 226, 103, 23);
 		getContentPane().add(lblGitLink);
 		
 		JButton lblVoltar = new JButton("Voltar");
@@ -99,7 +99,7 @@ public class Sobre extends JDialog {
 				dispose();
 			}
 		});
-		lblVoltar.setBounds(335, 227, 89, 23);
+		lblVoltar.setBounds(335, 226, 89, 23);
 		getContentPane().add(lblVoltar);
 		
 		setLocationRelativeTo(null);
