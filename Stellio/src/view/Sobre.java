@@ -57,17 +57,17 @@ public class Sobre extends JDialog {
 		
 		JLabel lblDescricao = new JLabel("Sistema para gestao de estoque e PVD");
 		lblDescricao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDescricao.setBounds(22, 61, 326, 14);
+		lblDescricao.setBounds(22, 61, 326, 23);
 		getContentPane().add(lblDescricao);
 		
 		JLabel lblAuthor = new JLabel("Autor: Gustavo");
 		lblAuthor.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAuthor.setBounds(20, 84, 159, 14);
+		lblAuthor.setBounds(20, 97, 159, 14);
 		getContentPane().add(lblAuthor);
 		
-		JLabel lblVersao = new JLabel("Versão 1.0");
+		JLabel lblVersao = new JLabel("Versão 1.6");
 		lblVersao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblVersao.setBounds(22, 106, 145, 14);
+		lblVersao.setBounds(21, 121, 145, 14);
 		getContentPane().add(lblVersao);
 		
 		JLabel lblMIT = new JLabel("");

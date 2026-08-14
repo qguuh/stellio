@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JPanel;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class frmFornecedor extends JDialog {
 
@@ -46,13 +47,14 @@ public class frmFornecedor extends JDialog {
 		setBounds(100, 100, 640, 480);
 		getContentPane().setLayout(null);
 		
-		JButton btnVoltar = new JButton("Voltar ao Menu");
+		JButton btnVoltar = new JButton("");
+		btnVoltar.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/logout.png")));
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(499, 407, 115, 23);
+		btnVoltar.setBounds(570, 384, 46, 46);
 		getContentPane().add(btnVoltar);
 		
 		JLabel lblNome = new JLabel("Nome");
@@ -85,24 +87,28 @@ public class frmFornecedor extends JDialog {
 		textField_2.setBounds(196, 222, 232, 20);
 		getContentPane().add(textField_2);
 		
-		JButton btnNewButton = new JButton("Adicionar");
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/plus.png")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(105, 407, 89, 23);
+		btnNewButton.setBounds(346, 384, 46, 46);
 		getContentPane().add(btnNewButton);
 		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(202, 407, 89, 23);
+		JButton btnEditar = new JButton("");
+		btnEditar.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/pencil.png")));
+		btnEditar.setBounds(402, 384, 46, 46);
 		getContentPane().add(btnEditar);
 		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(301, 407, 89, 23);
+		JButton btnExcluir = new JButton("");
+		btnExcluir.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/trash-bin.png")));
+		btnExcluir.setBounds(458, 384, 46, 46);
 		getContentPane().add(btnExcluir);
 		
-		JButton lbl = new JButton("Relatório");
-		lbl.setBounds(400, 407, 89, 23);
+		JButton lbl = new JButton("");
+		lbl.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/report.png")));
+		lbl.setBounds(514, 384, 46, 46);
 		getContentPane().add(lbl);
 		
 		JLabel lblID = new JLabel("ID");
@@ -115,13 +121,14 @@ public class frmFornecedor extends JDialog {
 		textField_3.setBounds(196, 129, 232, 20);
 		getContentPane().add(textField_3);
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(434, 159, 89, 23);
+		JButton btnBuscar = new JButton("");
+		btnBuscar.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/search (1).png")));
+		btnBuscar.setBounds(428, 160, 25, 20);
 		getContentPane().add(btnBuscar);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 64, 128));
-		panel.setBounds(0, 0, 624, 105);
+		panel.setBounds(0, 0, 624, 108);
 		getContentPane().add(panel);
 		
 		//Iniciar centralizado
