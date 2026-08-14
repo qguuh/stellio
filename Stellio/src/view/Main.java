@@ -148,7 +148,7 @@ public class Main extends JFrame {
 		btnVendas.setIconTextGap(25);
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setBounds(610, 11, 69, 64);
+		btnSair.setBounds(610, 11, 64, 64);
 		panelInferior.add(btnSair);
 		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSair.setForeground(new Color(0, 0, 0));
@@ -233,24 +233,24 @@ public class Main extends JFrame {
 		
 		JLabel lblDashboard = new JLabel("Dashboard");
 		lblDashboard.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblDashboard.setBounds(69, 11, 110, 49);
+		lblDashboard.setBounds(49, 11, 110, 49);
 		contentPane.add(lblDashboard);
 		
 		JLabel lblDashboardLogo = new JLabel("");
 		lblDashboardLogo.setIcon(new ImageIcon(Main.class.getResource("/img/speedometer (5).png")));
 		lblDashboardLogo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblDashboardLogo.setBounds(30, 11, 44, 49);
+		lblDashboardLogo.setBounds(10, 11, 44, 49);
 		contentPane.add(lblDashboardLogo);
 		
 		JLabel lbCalendário = new JLabel("");
 		lbCalendário.setIcon(new ImageIcon(Main.class.getResource("/img/calendar (1).png")));
 		lbCalendário.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lbCalendário.setBounds(651, 11, 32, 49);
+		lbCalendário.setBounds(671, 11, 32, 49);
 		contentPane.add(lbCalendário);
 		
 		lblData = new JLabel("");
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblData.setBounds(693, 21, 101, 31);
+		lblData.setBounds(713, 21, 101, 31);
 		contentPane.add(lblData);
 		
 		JPanel panelCard4 = new JPanel();
