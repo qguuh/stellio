@@ -2,11 +2,14 @@ package view;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -16,11 +19,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.JScrollPane;
 
 // Importar Database
 import database.Database;
@@ -35,6 +39,13 @@ public class Main extends JFrame {
 	Database db = new Database();
 	private JLabel lblStatus;
 	private JLabel lblMySQL;
+	private JTextField textFieldID;
+	private JTextField textFieldNome;
+	private JTextField textFieldTelefone;
+	private JTextField textFieldEmail;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
 
 	/**
 	 * Launch the application.
@@ -70,11 +81,190 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JPanel panelSobre = new JPanel();
+		panelSobre.setBackground(new Color(210, 210, 210));
+		panelSobre.setBounds(64, 70, 705, 374);
+		contentPane.add(panelSobre);
+		panelSobre.setLayout(null);
+		
+		JLabel lblMIT = new JLabel("");
+		lblMIT.setBounds(614, 30, 64, 64);
+		lblMIT.setIcon(new ImageIcon(Main.class.getResource("/img/java.png")));
+		panelSobre.add(lblMIT);
+		
+		JLabel lblGithub = new JLabel("");
+		lblGithub.setIcon(new ImageIcon(Main.class.getResource("/img/github.png")));
+		lblGithub.setBounds(20, 332, 32, 32);
+		panelSobre.add(lblGithub);
+		
+		JLabel lblGitLink = new JLabel("github.com/qguuh");
+		lblGitLink.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblGitLink.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				link("https://github.com/qguuh");
+			}
+		});
+		lblGitLink.setForeground(new Color(0, 51, 255));
+		lblGitLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblGitLink.setBounds(60, 336, 126, 23);
+		panelSobre.add(lblGitLink);
+		
+		
+		JLabel lblNome_1 = new JLabel("Stellio");
+		lblNome_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNome_1.setFont(new Font("Vladimir Script", Font.BOLD, 72));
+		lblNome_1.setBounds(149, 95, 409, 64);
+		panelSobre.add(lblNome_1);
+		
+		JLabel lblDescricao = new JLabel("Sistema para gestao de estoque e PVD");
+		lblDescricao.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDescricao.setFont(new Font("NSimSun", Font.BOLD, 20));
+		lblDescricao.setBounds(149, 169, 409, 33);
+		panelSobre.add(lblDescricao);
+		
+		JLabel lblAuthor = new JLabel("Feito por: Gustavo");
+		lblAuthor.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAuthor.setFont(new Font("NSimSun", Font.BOLD, 20));
+		lblAuthor.setBounds(149, 212, 409, 23);
+		panelSobre.add(lblAuthor);
+		
+		JLabel lblVersao = new JLabel("Versão 0.8");
+		lblVersao.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVersao.setFont(new Font("NSimSun", Font.BOLD, 20));
+		lblVersao.setBounds(149, 247, 409, 23);
+		panelSobre.add(lblVersao);
+		panelSobre.setVisible(false);
+		
+		JPanel panelFornecedor = new JPanel();
+		panelFornecedor.setBackground(new Color(210, 210, 210));
+		panelFornecedor.setBounds(64, 70, 705, 374);
+		contentPane.add(panelFornecedor);
+		panelFornecedor.setLayout(null);
+		
+		JLabel lblID = new JLabel("ID");
+		lblID.setHorizontalAlignment(SwingConstants.CENTER);
+		lblID.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblID.setBounds(60, 71, 115, 25);
+		panelFornecedor.add(lblID);
+		
+		JLabel lblNome = new JLabel("Nome");
+		lblNome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNome.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNome.setBounds(60, 102, 115, 25);
+		panelFornecedor.add(lblNome);
+		
+		JLabel lblTelefone = new JLabel("Telefone");
+		lblTelefone.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTelefone.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblTelefone.setBounds(60, 137, 115, 25);
+		panelFornecedor.add(lblTelefone);
+		
+		JLabel lblEmail = new JLabel("E-mail");
+		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblEmail.setBounds(60, 172, 115, 25);
+		panelFornecedor.add(lblEmail);
+		
+		JLabel lblItens = new JLabel("Itens");
+		lblItens.setHorizontalAlignment(SwingConstants.CENTER);
+		lblItens.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblItens.setBounds(60, 207, 115, 25);
+		panelFornecedor.add(lblItens);
+		
+		JLabel lblPensando = new JLabel("...");
+		lblPensando.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPensando.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblPensando.setBounds(60, 242, 115, 25);
+		panelFornecedor.add(lblPensando);
+		
+		JLabel lblSeinao = new JLabel("...");
+		lblSeinao.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSeinao.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblSeinao.setBounds(60, 277, 115, 25);
+		panelFornecedor.add(lblSeinao);
+		
+		textFieldID = new JTextField();
+		textFieldID.setBounds(185, 71, 275, 25);
+		panelFornecedor.add(textFieldID);
+		textFieldID.setColumns(10);
+		
+		textFieldNome = new JTextField();
+		textFieldNome.setColumns(10);
+		textFieldNome.setBounds(185, 102, 275, 25);
+		panelFornecedor.add(textFieldNome);
+		
+		textFieldTelefone = new JTextField();
+		textFieldTelefone.setColumns(10);
+		textFieldTelefone.setBounds(185, 137, 275, 25);
+		panelFornecedor.add(textFieldTelefone);
+		
+		textFieldEmail = new JTextField();
+		textFieldEmail.setColumns(10);
+		textFieldEmail.setBounds(185, 172, 275, 25);
+		panelFornecedor.add(textFieldEmail);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(185, 207, 275, 25);
+		panelFornecedor.add(textField_4);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(185, 242, 275, 25);
+		panelFornecedor.add(textField_5);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(185, 277, 275, 25);
+		panelFornecedor.add(textField_6);
+		
+		JButton btnAdicionar = new JButton("");
+		btnAdicionar.setIcon(new ImageIcon(Main.class.getResource("/img/plus.png")));
+		btnAdicionar.setBounds(649, 77, 46, 46);
+		panelFornecedor.add(btnAdicionar);
+		
+		JButton btnEditar = new JButton("");
+		btnEditar.setIcon(new ImageIcon(Main.class.getResource("/img/pencil.png")));
+		btnEditar.setBounds(649, 137, 46, 46);
+		panelFornecedor.add(btnEditar);
+		
+		JButton btnExcluir = new JButton("");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnExcluir.setIcon(new ImageIcon(Main.class.getResource("/img/trash-bin.png")));
+		btnExcluir.setBounds(649, 193, 46, 46);
+		panelFornecedor.add(btnExcluir);
+		
+		JButton btnRelatorio = new JButton("");
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnRelatorio.setIcon(new ImageIcon(Main.class.getResource("/img/report.png")));
+		btnRelatorio.setBounds(649, 248, 46, 46);
+		panelFornecedor.add(btnRelatorio);
+		
+		JButton btnBuscar = new JButton("");
+		btnBuscar.setIcon(new ImageIcon(Main.class.getResource("/img/search (1).png")));
+		btnBuscar.setBounds(460, 102, 25, 25);
+		panelFornecedor.add(btnBuscar);
+		
 		JPanel panelInferior = new JPanel();
 		panelInferior.setBackground(new Color(210, 210, 210));
 		panelInferior.setBounds(0, 454, 832, 107);
 		contentPane.add(panelInferior);
 		panelInferior.setLayout(null);
+		
+		// REMOÇÃO DE BORDA DOS BOÕES ABAIXO
+		
+		
+		
+		// ============================================================================
+		//                         BOTÕES INFERIORES FUNCIONAIS
+		// ============================================================================
 		
 		JButton btnFornecedores = new JButton("Fornecedores");
 		btnFornecedores.setBounds(170, 11, 64, 64);
@@ -82,58 +272,72 @@ public class Main extends JFrame {
 		btnFornecedores.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnFornecedores.setForeground(new Color(0, 0, 0));
 		btnFornecedores.setIcon(new ImageIcon(Main.class.getResource("/img/team.png")));
-		btnFornecedores.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmFornecedor fornecedor = new frmFornecedor();
-				fornecedor.setVisible(true);			}
-		});
-		
-		// Remove as bordas 
-		btnFornecedores.setBorderPainted(false);
-		
-		// Deixa o fundo transparente
-		//btnFornecedores.setContentAreaFilled(false);
-		
-		
-		
-		btnFornecedores.setIconTextGap(25);
-		btnFornecedores.setHorizontalAlignment(SwingConstants.LEFT);
-		btnFornecedores.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnFornecedores.setBackground(new Color(192, 192, 192));
 		
 		JButton btnProdutos = new JButton("Produtos");
 		btnProdutos.setBounds(270, 11, 64, 64);
 		panelInferior.add(btnProdutos);
 		btnProdutos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProdutos.setForeground(new Color(0, 0, 0));
-		btnProdutos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		
-		// Remove as bordas 
-		btnProdutos.setBorderPainted(false);
-		
-		btnProdutos.setBackground(new Color(192, 192, 192));
-		btnProdutos.setHorizontalAlignment(SwingConstants.LEFT);
-		btnProdutos.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnProdutos.setIcon(new ImageIcon(Main.class.getResource("/img/box.png")));
-		btnProdutos.setIconTextGap(25);
 		
 		JButton btnVendas = new JButton("Vendas");
 		btnVendas.setBounds(375, 11, 64, 64);
 		panelInferior.add(btnVendas);
 		btnVendas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVendas.setForeground(new Color(0, 0, 0));
-		btnVendas.addActionListener(new ActionListener() {
+		
+		JButton btnSobre = new JButton("Sobre");
+		btnSobre.setBounds(480, 11, 64, 64);
+		panelInferior.add(btnSobre);
+		btnSobre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSobre.setForeground(new Color(0, 0, 0));
+		
+		// REMOÇÃO DE BORDA DOS BOÕES ABAIXO
+		btnFornecedores.setBorderPainted(false);
+		btnProdutos.setBorderPainted(false);
+		btnVendas.setBorderPainted(false);
+		btnSobre.setBorderPainted(false);
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
+		btnFornecedores.setIconTextGap(25);
+		btnFornecedores.setHorizontalAlignment(SwingConstants.LEFT);
+		btnFornecedores.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnFornecedores.setBackground(new Color(210, 210, 210));
+		
+
+		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
 			}
 		});
 		
-		// Remove as bordas 
-		btnVendas.setBorderPainted(false);
 		
-		btnVendas.setBackground(new Color(192, 192, 192));
+		btnProdutos.setBackground(new Color(210, 210, 210));
+		btnProdutos.setHorizontalAlignment(SwingConstants.LEFT);
+		btnProdutos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnProdutos.setIcon(new ImageIcon(Main.class.getResource("/img/box.png")));
+		btnProdutos.setIconTextGap(25);
+		
+		
+		btnVendas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		
+ 
+		
+		
+		btnVendas.setBackground(new Color(210, 210, 210));
 		btnVendas.setHorizontalAlignment(SwingConstants.LEFT);
 		btnVendas.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnVendas.setIcon(new ImageIcon(Main.class.getResource("/img/grocery-store.png")));
@@ -159,33 +363,24 @@ public class Main extends JFrame {
 		// Remove as bordas 
 		btnSair.setBorderPainted(false);
 		
-		btnSair.setBackground(new Color(192, 192, 192));
+		btnSair.setBackground(new Color(210, 210, 210));
 		btnSair.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSair.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSair.setIcon(new ImageIcon(Main.class.getResource("/img/logout.png")));
 		btnSair.setIconTextGap(25);
 		
-		JButton btnSobre = new JButton("Sobre");
-		btnSobre.setBounds(480, 11, 64, 64);
-		panelInferior.add(btnSobre);
-		btnSobre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSobre.setForeground(new Color(0, 0, 0));
-		btnSobre.addActionListener(new ActionListener() {
-			// Ativar a tela sobre
-			public void actionPerformed(ActionEvent e) {
-				Sobre sobre = new Sobre();
-				sobre.setVisible(true);
-			}
-		});
 		
-		// Remove as bordas 
-		btnSobre.setBorderPainted(false);
+
 		
-		btnSobre.setBackground(new Color(192, 192, 192));
+		
+		btnSobre.setBackground(new Color(210, 210, 210));
 		btnSobre.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSobre.setIcon(new ImageIcon(Main.class.getResource("/img/info.png")));
 		btnSobre.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSobre.setIconTextGap(25);
+		
+		
+		// =========================================================================================================
 		
 		JLabel lblDatabase = new JLabel("");
 		lblDatabase.setBounds(330, 81, 31, 26);
@@ -202,7 +397,7 @@ public class Main extends JFrame {
 		lblStatus = new JLabel("•");
 		lblStatus.setBounds(467, 80, 25, 26);
 		panelInferior.add(lblStatus);
-		lblStatus.setForeground(new Color(204, 0, 0));
+		lblStatus.setForeground(new Color(0, 174, 0));
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JLabel lblDashboard = new JLabel("Dashboard");
@@ -356,6 +551,10 @@ public class Main extends JFrame {
 				panelMeioGrande.hide();
 				panelLateralGrande.show();
 				
+				// Botões inferiores >>>>>>>>>>>>>>>>>>>>>>>>>
+				panelFornecedor.hide();
+				panelSobre.hide();
+				
 				// Botão lado Grande voltando ao normal
 				
 				btnMeioGrande.setVisible(true);
@@ -391,6 +590,7 @@ public class Main extends JFrame {
 				panelCard5.hide();
 				panelCard6.hide();
 				
+
 			}
 		});
 		btnLateralCard.setBounds(23, 232, 32, 49);
@@ -414,13 +614,17 @@ public class Main extends JFrame {
 						
 						// Tela meio e botão CARD (fazer todo o Card voltar ao normal)
 						
-						// Tela meio Card
+						// Tela meio Card e tela dos botões inferiores
 						panelCard1.hide();
 						panelCard2.hide();
 						panelCard3.hide();
 						panelCard4.hide();
 						panelCard5.hide();
 						panelCard6.hide();
+						
+						// Botões inferiores >>>>>>>>>>>>>>>>>>>>>>>>>
+						panelFornecedor.hide();
+						panelSobre.hide();
 						
 						// Botão Card
 						btnLateralCard.setVisible(false);
@@ -455,25 +659,115 @@ public class Main extends JFrame {
 						
 					}
 				});
+				
+				// ============================================================================
+				//                         BOTÕES INFERIORES CLICÁVEIS
+				//						  BOTÕES FUNCIONAIS NA LINHA 260
+				// ============================================================================
+				
+				
+				// TELA NÃO APARECENDO QUANDO O PROGRAMA ABRE
+				
+				panelFornecedor.setVisible(false);
+				
+				btnFornecedores.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
+						panelCard1.hide();
+						panelCard2.hide();
+						panelCard3.hide();
+						panelCard4.hide();
+						panelCard5.hide();
+						panelCard6.hide();
+						panelMeioGrande.hide();
+						panelLateralGrande.show();
+						
+						// tela lateral CARD e GRANDE (aparecendo)
+						panelLateral2.show();
+						panelLateral1.show();
+						panelLateral2.show();
+						panelLateral1.show();
+						
+						// Aparecer os botões para puxar o CARD e Grande
+						
+						// botão CARD
+						btnLateralCard.setVisible(false);
+						btnMeioCard.setVisible(true);
+						
+						// botões do Grande
+						btnMeioGrande.setVisible(true);
+						btnLateralGrande.setVisible(false);
+						
+						// Sumir com todas as telas dos botões inferiores 
+						panelSobre.hide();
+						
+						// Aparecer a tela fornecedor
+						panelFornecedor.show();			
+						}
+				});
+
+				
+				btnSobre.addActionListener(new ActionListener() {
+					// Ativar a tela sobre
+					public void actionPerformed(ActionEvent e) {
+						// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
+						panelCard1.hide();
+						panelCard2.hide();
+						panelCard3.hide();
+						panelCard4.hide();
+						panelCard5.hide();
+						panelCard6.hide();
+						panelMeioGrande.hide();
+						panelLateralGrande.show();
+						
+						// tela lateral CARD e GRANDE (aparecendo)
+						panelLateral2.show();
+						panelLateral1.show();
+						panelLateral2.show();
+						panelLateral1.show();
+						
+						// Aparecer os botões para puxar o CARD e Grande
+						
+						// botão CARD
+						btnLateralCard.setVisible(false);
+						btnMeioCard.setVisible(true);
+						
+						// botões do Grande
+						btnMeioGrande.setVisible(true);
+						btnLateralGrande.setVisible(false);
+						
+						// Sumir com todas as telas dos botões inferiores
+						panelFornecedor.hide();
+						
+						// Aparecer a tela sobre
+						panelSobre.show();	
+					}
+				});
+				
+				
+				
+				
+				
 				btnLateralGrande.setBounds(777, 232, 32, 49);
 				contentPane.add(btnLateralGrande);
 				
-				JLabel lblNewLabel_2 = new JLabel("");
-				lblNewLabel_2.setIcon(new ImageIcon(Main.class.getResource("/img/dress 128px.png")));
-				lblNewLabel_2.setBounds(215, 204, 119, 143);
-				contentPane.add(lblNewLabel_2);
+				JLabel lblVestido = new JLabel("");
+				lblVestido.setIcon(new ImageIcon(Main.class.getResource("/img/dress 128px.png")));
+				lblVestido.setBounds(215, 204, 119, 143);
+				contentPane.add(lblVestido);
 				
-				JLabel lblNewLabel_3 = new JLabel("Stellio");
-				lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel_3.setFont(new Font("Vladimir Script", Font.BOLD, 85));
-				lblNewLabel_3.setBounds(326, 204, 249, 107);
-				contentPane.add(lblNewLabel_3);
+				JLabel lblStellio = new JLabel("Stellio");
+				lblStellio.setHorizontalAlignment(SwingConstants.CENTER);
+				lblStellio.setFont(new Font("Vladimir Script", Font.BOLD, 85));
+				lblStellio.setBounds(326, 204, 249, 107);
+				contentPane.add(lblStellio);
 				
-				JLabel lblNewLabel_5 = new JLabel("Vestidos de alta costura");
-				lblNewLabel_5.setFont(new Font("NSimSun", Font.PLAIN, 20));
-				lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-				lblNewLabel_5.setBounds(306, 298, 300, 26);
-				contentPane.add(lblNewLabel_5);
+				JLabel lblRodape = new JLabel("Vestidos de alta costura");
+				lblRodape.setFont(new Font("NSimSun", Font.PLAIN, 20));
+				lblRodape.setHorizontalAlignment(SwingConstants.CENTER);
+				lblRodape.setBounds(306, 298, 300, 26);
+				contentPane.add(lblRodape);
 		
 		//Iniciar centralizado
 		setLocationRelativeTo(null);
@@ -488,14 +782,30 @@ public class Main extends JFrame {
 		if (db.testarConexao() == true) {
 			System.out.println("Banco conectado");
 			lblMySQL.setText("MySQL Conectado");
-			lblStatus.setForeground(Color.GREEN);
+			lblStatus.setForeground(new Color(0, 174, 0));
+			lblStatus.setBounds(459, 80, 25, 26);
 		} else {
 			System.out.println("Erro na conexão");
 			lblMySQL.setText("MySQL Desconectado");
-			lblStatus.setForeground(Color.RED);
+			lblStatus.setForeground(new Color(204, 0, 0));
 		}
 		
 	} // fim do public main (constuctor)
+	
+	
+	private void link(String url) {
+		// a linha abaixo obtem o desktop do cliente
+		Desktop desktop = Desktop.getDesktop();
+		// uso do try catch (tratamento de exeções)
+		try {
+			// objeto URI para acessar os métodos necessários para estabelecer uma conexão com a url (link)
+			URI uri = new URI(url);
+			// abrir o link no navegador padrão do cliente
+			desktop.browse(uri);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 	
 	// função (método) para atualizar a data do sistema
 	private void atualizarData() {
