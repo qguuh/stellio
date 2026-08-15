@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -22,7 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.Toolkit;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
@@ -39,13 +39,10 @@ public class Main extends JFrame {
 	Database db = new Database();
 	private JLabel lblStatus;
 	private JLabel lblMySQL;
-	private JTextField textFieldID;
-	private JTextField textFieldNome;
-	private JTextField textFieldTelefone;
-	private JTextField textFieldEmail;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 
 	/**
 	 * Launch the application.
@@ -54,6 +51,8 @@ public class Main extends JFrame {
 		
 		// Uso da biblioteca flatlaf (Swing moderno)
 		   FlatLightLaf.setup();
+		 
+		   
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -80,6 +79,153 @@ public class Main extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JPanel panelAdicionar = new JPanel();
+		panelAdicionar.setBackground(new Color(210, 210, 210));
+		panelAdicionar.setBounds(64, 117, 705, 258);
+		contentPane.add(panelAdicionar);
+		panelAdicionar.setLayout(null);
+		panelAdicionar.hide();
+		
+		JLabel lblID_1 = new JLabel("ID");
+		lblID_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblID_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblID_1.setBounds(94, 55, 115, 25);
+		panelAdicionar.add(lblID_1);
+		
+		JLabel lblNome_2 = new JLabel("Nome");
+		lblNome_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNome_2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNome_2.setBounds(94, 86, 115, 25);
+		panelAdicionar.add(lblNome_2);
+		
+		JLabel lblTelefone_1 = new JLabel("Telefone");
+		lblTelefone_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTelefone_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblTelefone_1.setBounds(94, 121, 115, 25);
+		panelAdicionar.add(lblTelefone_1);
+		
+		JLabel lblEmail_1 = new JLabel("E-mail");
+		lblEmail_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEmail_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblEmail_1.setBounds(94, 156, 115, 25);
+		panelAdicionar.add(lblEmail_1);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(219, 156, 260, 25);
+		panelAdicionar.add(textField);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(219, 121, 260, 25);
+		panelAdicionar.add(textField_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(219, 86, 260, 25);
+		panelAdicionar.add(textField_2);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(219, 55, 87, 25);
+		panelAdicionar.add(textField_3);
+		
+		JButton btnBuscar = new JButton("");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnBuscar.setIcon(new ImageIcon(Main.class.getResource("/img/loupe.png")));
+		btnBuscar.setBorderPainted(false);
+		btnBuscar.setBackground(new Color(210, 210, 210));
+		btnBuscar.setBounds(477, 86, 25, 25);
+		panelAdicionar.add(btnBuscar);
+		
+		
+		JButton btnCriar = new JButton("");
+		btnCriar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnCriar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCriar.setBackground(new Color(210, 210, 210));
+		btnCriar.setIcon(new ImageIcon(Main.class.getResource("/img/add.png")));
+		btnCriar.setBounds(586, 184, 64, 64);
+		panelAdicionar.add(btnCriar);
+		
+		btnCriar.setBorderPainted(false);
+		
+
+
+
+		
+		JPanel panelFornecedor = new JPanel();
+		panelFornecedor.setBackground(new Color(210, 210, 210));
+		panelFornecedor.setBounds(64, 70, 705, 374);
+		contentPane.add(panelFornecedor);
+		panelFornecedor.setLayout(null);
+		
+		JButton btnEditar = new JButton("");
+		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnEditar.setBackground(new Color(210, 210, 210));
+		btnEditar.setIcon(new ImageIcon(Main.class.getResource("/img/pencil.png")));
+		btnEditar.setBounds(296, 310, 64, 64);
+		panelFornecedor.add(btnEditar);
+		
+		JButton btnExcluir = new JButton("");
+		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnExcluir.setBackground(new Color(210, 210, 210));
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnExcluir.setIcon(new ImageIcon(Main.class.getResource("/img/delete.png")));
+		btnExcluir.setBounds(370, 310, 64, 64);
+		panelFornecedor.add(btnExcluir);
+		
+		JButton btnRelatorio = new JButton("");
+		btnRelatorio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRelatorio.setBackground(new Color(210, 210, 210));
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnRelatorio.setIcon(new ImageIcon(Main.class.getResource("/img/file.png")));
+		btnRelatorio.setBounds(444, 310, 64, 64);
+		panelFornecedor.add(btnRelatorio);
+		
+		// TELA NÃO APARECENDO QUANDO O PROGRAMA ABRE
+		
+		panelFornecedor.setVisible(false);
+		
+		
+		// REMOÇÃO E BORDA DOS BOTÕES FORNECEDORES
+		btnRelatorio.setBorderPainted(false);
+		btnExcluir.setBorderPainted(false);
+		btnEditar.setBorderPainted(false);
+		
+		JButton btnAdicionar = new JButton("");
+		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		btnAdicionar.setIcon(new ImageIcon(Main.class.getResource("/img/plus (1).png")));
+		btnAdicionar.setBorderPainted(false);
+		btnAdicionar.setBackground(new Color(210, 210, 210));
+		btnAdicionar.setBounds(222, 310, 64, 64);
+		panelFornecedor.add(btnAdicionar);
+		
+		JLabel lblNewLabel = new JLabel("Fornecedores");
+		lblNewLabel.setIconTextGap(15);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/img/team.png")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(10, 0, 211, 46);
+		panelFornecedor.add(lblNewLabel);
+		
+		
+
+		
+
 		
 		JPanel panelSobre = new JPanel();
 		panelSobre.setBackground(new Color(210, 210, 210));
@@ -117,7 +263,7 @@ public class Main extends JFrame {
 		lblNome_1.setBounds(149, 95, 409, 64);
 		panelSobre.add(lblNome_1);
 		
-		JLabel lblDescricao = new JLabel("Sistema para gestao de estoque e PVD");
+		JLabel lblDescricao = new JLabel("Sistema para gestão de estoque e PVD");
 		lblDescricao.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDescricao.setFont(new Font("NSimSun", Font.BOLD, 20));
 		lblDescricao.setBounds(149, 169, 409, 33);
@@ -129,128 +275,12 @@ public class Main extends JFrame {
 		lblAuthor.setBounds(149, 212, 409, 23);
 		panelSobre.add(lblAuthor);
 		
-		JLabel lblVersao = new JLabel("Versão 0.8");
+		JLabel lblVersao = new JLabel("Versão 0.9");
 		lblVersao.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVersao.setFont(new Font("NSimSun", Font.BOLD, 20));
 		lblVersao.setBounds(149, 247, 409, 23);
 		panelSobre.add(lblVersao);
 		panelSobre.setVisible(false);
-		
-		JPanel panelFornecedor = new JPanel();
-		panelFornecedor.setBackground(new Color(210, 210, 210));
-		panelFornecedor.setBounds(64, 70, 705, 374);
-		contentPane.add(panelFornecedor);
-		panelFornecedor.setLayout(null);
-		
-		JLabel lblID = new JLabel("ID");
-		lblID.setHorizontalAlignment(SwingConstants.CENTER);
-		lblID.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblID.setBounds(60, 71, 115, 25);
-		panelFornecedor.add(lblID);
-		
-		JLabel lblNome = new JLabel("Nome");
-		lblNome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNome.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNome.setBounds(60, 102, 115, 25);
-		panelFornecedor.add(lblNome);
-		
-		JLabel lblTelefone = new JLabel("Telefone");
-		lblTelefone.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTelefone.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblTelefone.setBounds(60, 137, 115, 25);
-		panelFornecedor.add(lblTelefone);
-		
-		JLabel lblEmail = new JLabel("E-mail");
-		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblEmail.setBounds(60, 172, 115, 25);
-		panelFornecedor.add(lblEmail);
-		
-		JLabel lblItens = new JLabel("Itens");
-		lblItens.setHorizontalAlignment(SwingConstants.CENTER);
-		lblItens.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblItens.setBounds(60, 207, 115, 25);
-		panelFornecedor.add(lblItens);
-		
-		JLabel lblPensando = new JLabel("...");
-		lblPensando.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPensando.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblPensando.setBounds(60, 242, 115, 25);
-		panelFornecedor.add(lblPensando);
-		
-		JLabel lblSeinao = new JLabel("...");
-		lblSeinao.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSeinao.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblSeinao.setBounds(60, 277, 115, 25);
-		panelFornecedor.add(lblSeinao);
-		
-		textFieldID = new JTextField();
-		textFieldID.setBounds(185, 71, 275, 25);
-		panelFornecedor.add(textFieldID);
-		textFieldID.setColumns(10);
-		
-		textFieldNome = new JTextField();
-		textFieldNome.setColumns(10);
-		textFieldNome.setBounds(185, 102, 275, 25);
-		panelFornecedor.add(textFieldNome);
-		
-		textFieldTelefone = new JTextField();
-		textFieldTelefone.setColumns(10);
-		textFieldTelefone.setBounds(185, 137, 275, 25);
-		panelFornecedor.add(textFieldTelefone);
-		
-		textFieldEmail = new JTextField();
-		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(185, 172, 275, 25);
-		panelFornecedor.add(textFieldEmail);
-		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(185, 207, 275, 25);
-		panelFornecedor.add(textField_4);
-		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(185, 242, 275, 25);
-		panelFornecedor.add(textField_5);
-		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(185, 277, 275, 25);
-		panelFornecedor.add(textField_6);
-		
-		JButton btnAdicionar = new JButton("");
-		btnAdicionar.setIcon(new ImageIcon(Main.class.getResource("/img/plus.png")));
-		btnAdicionar.setBounds(649, 77, 46, 46);
-		panelFornecedor.add(btnAdicionar);
-		
-		JButton btnEditar = new JButton("");
-		btnEditar.setIcon(new ImageIcon(Main.class.getResource("/img/pencil.png")));
-		btnEditar.setBounds(649, 137, 46, 46);
-		panelFornecedor.add(btnEditar);
-		
-		JButton btnExcluir = new JButton("");
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnExcluir.setIcon(new ImageIcon(Main.class.getResource("/img/trash-bin.png")));
-		btnExcluir.setBounds(649, 193, 46, 46);
-		panelFornecedor.add(btnExcluir);
-		
-		JButton btnRelatorio = new JButton("");
-		btnRelatorio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnRelatorio.setIcon(new ImageIcon(Main.class.getResource("/img/report.png")));
-		btnRelatorio.setBounds(649, 248, 46, 46);
-		panelFornecedor.add(btnRelatorio);
-		
-		JButton btnBuscar = new JButton("");
-		btnBuscar.setIcon(new ImageIcon(Main.class.getResource("/img/search (1).png")));
-		btnBuscar.setBounds(460, 102, 25, 25);
-		panelFornecedor.add(btnBuscar);
 		
 		JPanel panelInferior = new JPanel();
 		panelInferior.setBackground(new Color(210, 210, 210));
@@ -279,11 +309,11 @@ public class Main extends JFrame {
 		btnProdutos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProdutos.setForeground(new Color(0, 0, 0));
 		
-		JButton btnVendas = new JButton("Vendas");
-		btnVendas.setBounds(375, 11, 64, 64);
-		panelInferior.add(btnVendas);
-		btnVendas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnVendas.setForeground(new Color(0, 0, 0));
+		JButton btnHome = new JButton("Home");
+		btnHome.setBounds(375, 11, 64, 64);
+		panelInferior.add(btnHome);
+		btnHome.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnHome.setForeground(new Color(0, 0, 0));
 		
 		JButton btnSobre = new JButton("Sobre");
 		btnSobre.setBounds(480, 11, 64, 64);
@@ -291,13 +321,11 @@ public class Main extends JFrame {
 		btnSobre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSobre.setForeground(new Color(0, 0, 0));
 		
-		// REMOÇÃO DE BORDA DOS BOÕES ABAIXO
+		// REMOÇÃO DE BORDA DOS BOTÕES
 		btnFornecedores.setBorderPainted(false);
 		btnProdutos.setBorderPainted(false);
-		btnVendas.setBorderPainted(false);
+		btnHome.setBorderPainted(false);
 		btnSobre.setBorderPainted(false);
-		
-		
 		
 		
 		
@@ -327,23 +355,18 @@ public class Main extends JFrame {
 		btnProdutos.setIconTextGap(25);
 		
 		
-		btnVendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
+
 		
  
 		
 		
-		btnVendas.setBackground(new Color(210, 210, 210));
-		btnVendas.setHorizontalAlignment(SwingConstants.LEFT);
-		btnVendas.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnVendas.setIcon(new ImageIcon(Main.class.getResource("/img/grocery-store.png")));
-		btnVendas.setIconTextGap(25);
+		btnHome.setBackground(new Color(210, 210, 210));
+		btnHome.setHorizontalAlignment(SwingConstants.LEFT);
+		btnHome.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnHome.setIcon(new ImageIcon(Main.class.getResource("/img/home.png")));
+		btnHome.setIconTextGap(25);
 		
-		JButton btnSair = new JButton("Sair");
+		JButton btnSair = new JButton("");
 		btnSair.setBounds(590, 11, 64, 64);
 		panelInferior.add(btnSair);
 		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -353,7 +376,7 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema", "Confirmar saída", JOptionPane.YES_NO_OPTION);
 				// Apoio ao entendimento da lógica
-				System.out.println(resposta);
+				//System.out.println(resposta);
 				if (resposta == 0) {
 					System.exit(0); // encerra o sistema
 				} 
@@ -364,7 +387,6 @@ public class Main extends JFrame {
 		btnSair.setBorderPainted(false);
 		
 		btnSair.setBackground(new Color(210, 210, 210));
-		btnSair.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSair.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSair.setIcon(new ImageIcon(Main.class.getResource("/img/logout.png")));
 		btnSair.setIconTextGap(25);
@@ -554,6 +576,7 @@ public class Main extends JFrame {
 				// Botões inferiores >>>>>>>>>>>>>>>>>>>>>>>>>
 				panelFornecedor.hide();
 				panelSobre.hide();
+				panelAdicionar.hide();
 				
 				// Botão lado Grande voltando ao normal
 				
@@ -625,6 +648,7 @@ public class Main extends JFrame {
 						// Botões inferiores >>>>>>>>>>>>>>>>>>>>>>>>>
 						panelFornecedor.hide();
 						panelSobre.hide();
+						panelAdicionar.hide();
 						
 						// Botão Card
 						btnLateralCard.setVisible(false);
@@ -665,11 +689,6 @@ public class Main extends JFrame {
 				//						  BOTÕES FUNCIONAIS NA LINHA 260
 				// ============================================================================
 				
-				
-				// TELA NÃO APARECENDO QUANDO O PROGRAMA ABRE
-				
-				panelFornecedor.setVisible(false);
-				
 				btnFornecedores.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
@@ -701,10 +720,84 @@ public class Main extends JFrame {
 						
 						// Sumir com todas as telas dos botões inferiores 
 						panelSobre.hide();
+						panelAdicionar.hide();
 						
 						// Aparecer a tela fornecedor
 						panelFornecedor.show();			
 						}
+				});
+				
+				btnAdicionar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
+						panelCard1.hide();
+						panelCard2.hide();
+						panelCard3.hide();
+						panelCard4.hide();
+						panelCard5.hide();
+						panelCard6.hide();
+						panelMeioGrande.hide();
+						panelLateralGrande.show();
+						
+						// tela lateral CARD e GRANDE (aparecendo)
+						panelLateral2.show();
+						panelLateral1.show();
+
+						
+						// Aparecer os botões para puxar o CARD e Grande
+						
+						// botão CARD
+						btnLateralCard.setVisible(false);
+						btnMeioCard.setVisible(true);
+						
+						// botões do Grande
+						btnMeioGrande.setVisible(true);
+						btnLateralGrande.setVisible(false);
+						
+						// Sumir com todas as telas dos botões inferiores	
+						panelSobre.hide();
+						
+						
+						panelFornecedor.show();
+						panelAdicionar.show();
+						
+					}
+				});
+				
+				btnHome.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
+						panelCard1.hide();
+						panelCard2.hide();
+						panelCard3.hide();
+						panelCard4.hide();
+						panelCard5.hide();
+						panelCard6.hide();
+						panelMeioGrande.hide();
+						panelLateralGrande.show();
+						
+						// tela lateral CARD e GRANDE (aparecendo)
+						panelLateral2.show();
+						panelLateral1.show();
+
+						
+						// Aparecer os botões para puxar o CARD e Grande
+						
+						// botão CARD
+						btnLateralCard.setVisible(false);
+						btnMeioCard.setVisible(true);
+						
+						// botões do Grande
+						btnMeioGrande.setVisible(true);
+						btnLateralGrande.setVisible(false);
+						
+						// Sumir com todas as telas dos botões inferiores
+						panelFornecedor.hide();
+						panelSobre.hide();
+						panelAdicionar.hide();
+						
+					}
 				});
 
 				
@@ -739,12 +832,12 @@ public class Main extends JFrame {
 						
 						// Sumir com todas as telas dos botões inferiores
 						panelFornecedor.hide();
+						panelAdicionar.hide();
 						
 						// Aparecer a tela sobre
 						panelSobre.show();	
 					}
 				});
-				
 				
 				
 				
@@ -780,12 +873,12 @@ public class Main extends JFrame {
 		
 		// status do banco (mudar texto e cor da bolinha)
 		if (db.testarConexao() == true) {
-			System.out.println("Banco conectado");
+			//System.out.println("Banco conectado");
 			lblMySQL.setText("MySQL Conectado");
 			lblStatus.setForeground(new Color(0, 174, 0));
 			lblStatus.setBounds(459, 80, 25, 26);
 		} else {
-			System.out.println("Erro na conexão");
+			//System.out.println("Erro na conexão");
 			lblMySQL.setText("MySQL Desconectado");
 			lblStatus.setForeground(new Color(204, 0, 0));
 		}
@@ -816,4 +909,5 @@ public class Main extends JFrame {
 		// alterar o texto de lblData
 		lblData.setText(now.format(format));
 	} // fim do atualizarData
+	
 } // fim da classe Main (principal)
