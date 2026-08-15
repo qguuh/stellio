@@ -20,12 +20,21 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.JScrollPane;
+
+// Importar Database
+import database.Database;
 
 public class Main extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblData;
+	
+	// Criação de um objeto para ligar com a conexão
+	Database db = new Database();
+	private JLabel lblStatus;
+	private JLabel lblMySQL;
 
 	/**
 	 * Launch the application.
@@ -68,7 +77,7 @@ public class Main extends JFrame {
 		panelInferior.setLayout(null);
 		
 		JButton btnFornecedores = new JButton("Fornecedores");
-		btnFornecedores.setBounds(153, 11, 64, 64);
+		btnFornecedores.setBounds(170, 11, 64, 64);
 		panelInferior.add(btnFornecedores);
 		btnFornecedores.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnFornecedores.setForeground(new Color(0, 0, 0));
@@ -93,7 +102,7 @@ public class Main extends JFrame {
 		btnFornecedores.setBackground(new Color(192, 192, 192));
 		
 		JButton btnProdutos = new JButton("Produtos");
-		btnProdutos.setBounds(248, 11, 64, 64);
+		btnProdutos.setBounds(270, 11, 64, 64);
 		panelInferior.add(btnProdutos);
 		btnProdutos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProdutos.setForeground(new Color(0, 0, 0));
@@ -111,27 +120,8 @@ public class Main extends JFrame {
 		btnProdutos.setIcon(new ImageIcon(Main.class.getResource("/img/box.png")));
 		btnProdutos.setIconTextGap(25);
 		
-		JButton btnPDV = new JButton("Vendas");
-		btnPDV.setBounds(338, 11, 64, 64);
-		panelInferior.add(btnPDV);
-		btnPDV.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnPDV.setForeground(new Color(0, 0, 0));
-		btnPDV.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		
-		// Remove as bordas 
-		btnPDV.setBorderPainted(false);
-		
-		btnPDV.setBackground(new Color(192, 192, 192));
-		btnPDV.setHorizontalAlignment(SwingConstants.LEFT);
-		btnPDV.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnPDV.setIcon(new ImageIcon(Main.class.getResource("/img/cashier.png")));
-		btnPDV.setIconTextGap(25);
-		
 		JButton btnVendas = new JButton("Vendas");
-		btnVendas.setBounds(428, 11, 64, 64);
+		btnVendas.setBounds(375, 11, 64, 64);
 		panelInferior.add(btnVendas);
 		btnVendas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnVendas.setForeground(new Color(0, 0, 0));
@@ -150,7 +140,7 @@ public class Main extends JFrame {
 		btnVendas.setIconTextGap(25);
 		
 		JButton btnSair = new JButton("Sair");
-		btnSair.setBounds(613, 11, 64, 64);
+		btnSair.setBounds(590, 11, 64, 64);
 		panelInferior.add(btnSair);
 		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSair.setForeground(new Color(0, 0, 0));
@@ -176,7 +166,7 @@ public class Main extends JFrame {
 		btnSair.setIconTextGap(25);
 		
 		JButton btnSobre = new JButton("Sobre");
-		btnSobre.setBounds(518, 11, 64, 64);
+		btnSobre.setBounds(480, 11, 64, 64);
 		panelInferior.add(btnSobre);
 		btnSobre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSobre.setForeground(new Color(0, 0, 0));
@@ -198,18 +188,19 @@ public class Main extends JFrame {
 		btnSobre.setIconTextGap(25);
 		
 		JLabel lblDatabase = new JLabel("");
-		lblDatabase.setBounds(338, 81, 31, 26);
+		lblDatabase.setBounds(330, 81, 31, 26);
 		panelInferior.add(lblDatabase);
 		lblDatabase.setIcon(new ImageIcon(Main.class.getResource("/img/storage (1).png")));
 		lblDatabase.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		JLabel lblMySQL = new JLabel("MySQL Desconectado");
-		lblMySQL.setBounds(369, 81, 104, 26);
+		lblMySQL = new JLabel("");
+		lblMySQL.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMySQL.setBounds(361, 81, 104, 26);
 		panelInferior.add(lblMySQL);
 		lblMySQL.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
-		JLabel lblStatus = new JLabel("•");
-		lblStatus.setBounds(475, 80, 25, 26);
+		lblStatus = new JLabel("•");
+		lblStatus.setBounds(467, 80, 25, 26);
 		panelInferior.add(lblStatus);
 		lblStatus.setForeground(new Color(204, 0, 0));
 		lblStatus.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -296,7 +287,7 @@ public class Main extends JFrame {
 		JPanel panelMeioGrande = new JPanel();
 		panelMeioGrande.setLayout(null);
 		panelMeioGrande.setBackground(new Color(210, 210, 210));
-		panelMeioGrande.setBounds(64, 70, 705, 374);
+		panelMeioGrande.setBounds(64, 71, 705, 373);
 		contentPane.add(panelMeioGrande);
 		panelMeioGrande.setVisible(false);
 		
@@ -492,7 +483,18 @@ public class Main extends JFrame {
 		
 		// atualizar Data
 		atualizarData();
-
+		
+		// status do banco (mudar texto e cor da bolinha)
+		if (db.testarConexao() == true) {
+			System.out.println("Banco conectado");
+			lblMySQL.setText("MySQL Conectado");
+			lblStatus.setForeground(Color.GREEN);
+		} else {
+			System.out.println("Erro na conexão");
+			lblMySQL.setText("MySQL Desconectado");
+			lblStatus.setForeground(Color.RED);
+		}
+		
 	} // fim do public main (constuctor)
 	
 	// função (método) para atualizar a data do sistema

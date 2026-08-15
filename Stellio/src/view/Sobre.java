@@ -65,7 +65,7 @@ public class Sobre extends JDialog {
 		lblAuthor.setBounds(20, 97, 159, 14);
 		getContentPane().add(lblAuthor);
 		
-		JLabel lblVersao = new JLabel("Versão 1.6");
+		JLabel lblVersao = new JLabel("Versão 1.7");
 		lblVersao.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblVersao.setBounds(21, 121, 145, 14);
 		getContentPane().add(lblVersao);
