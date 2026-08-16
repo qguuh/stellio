@@ -25,9 +25,26 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+import javax.swing.*;
 
 // Importar Database
 import database.Database;
+import javax.swing.JSplitPane;
+import javax.swing.JScrollPane;
+import javax.swing.JToolBar;
+import javax.swing.JInternalFrame;
+import javax.swing.JDesktopPane;
+import javax.swing.JSlider;
+import javax.swing.JSeparator;
+import javax.swing.JScrollBar;
+import javax.swing.JProgressBar;
+import javax.swing.JTable;
+import javax.swing.JSpinner;
+import javax.swing.JEditorPane;
+import javax.swing.JPasswordField;
+import javax.swing.JToggleButton;
+import javax.swing.JComboBox;
 
 public class Main extends JFrame {
 
@@ -82,7 +99,7 @@ public class Main extends JFrame {
 		
 		JPanel panelAdicionar = new JPanel();
 		panelAdicionar.setBackground(new Color(210, 210, 210));
-		panelAdicionar.setBounds(64, 117, 705, 258);
+		panelAdicionar.setBounds(64, 113, 705, 262);
 		contentPane.add(panelAdicionar);
 		panelAdicionar.setLayout(null);
 		panelAdicionar.hide();
@@ -162,7 +179,7 @@ public class Main extends JFrame {
 		
 		JPanel panelFornecedor = new JPanel();
 		panelFornecedor.setBackground(new Color(210, 210, 210));
-		panelFornecedor.setBounds(64, 70, 705, 374);
+		panelFornecedor.setBounds(64, 70, 705, 375);
 		contentPane.add(panelFornecedor);
 		panelFornecedor.setLayout(null);
 		
@@ -214,13 +231,26 @@ public class Main extends JFrame {
 		btnAdicionar.setBounds(222, 310, 64, 64);
 		panelFornecedor.add(btnAdicionar);
 		
-		JLabel lblNewLabel = new JLabel("Fornecedores");
-		lblNewLabel.setIconTextGap(15);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/img/team.png")));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 0, 211, 46);
-		panelFornecedor.add(lblNewLabel);
+		JLabel lblFornecedores = new JLabel("Fornecedores");
+		lblFornecedores.setIconTextGap(15);
+		lblFornecedores.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblFornecedores.setIcon(new ImageIcon(Main.class.getResource("/img/team.png")));
+		lblFornecedores.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFornecedores.setBounds(0, 0, 705, 46);
+		panelFornecedor.add(lblFornecedores);
+		
+		JPanel panelProdutos = new JPanel();
+		panelProdutos.setBackground(new Color(210, 210, 210));
+		panelProdutos.setBounds(64, 70, 705, 375);
+		contentPane.add(panelProdutos);
+		
+		JLabel lblProdutos = new JLabel("Produtos");
+		lblProdutos.setIconTextGap(15);
+		lblProdutos.setIcon(new ImageIcon(Main.class.getResource("/img/box.png")));
+		lblProdutos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProdutos.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		panelProdutos.add(lblProdutos);
+		panelProdutos.setVisible(false);
 		
 		
 
@@ -229,7 +259,7 @@ public class Main extends JFrame {
 		
 		JPanel panelSobre = new JPanel();
 		panelSobre.setBackground(new Color(210, 210, 210));
-		panelSobre.setBounds(64, 70, 705, 374);
+		panelSobre.setBounds(64, 70, 705, 375);
 		contentPane.add(panelSobre);
 		panelSobre.setLayout(null);
 		
@@ -275,7 +305,7 @@ public class Main extends JFrame {
 		lblAuthor.setBounds(149, 212, 409, 23);
 		panelSobre.add(lblAuthor);
 		
-		JLabel lblVersao = new JLabel("Versão 0.9");
+		JLabel lblVersao = new JLabel("Versão: 1.0");
 		lblVersao.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVersao.setFont(new Font("NSimSun", Font.BOLD, 20));
 		lblVersao.setBounds(149, 247, 409, 23);
@@ -340,12 +370,7 @@ public class Main extends JFrame {
 		btnFornecedores.setBackground(new Color(210, 210, 210));
 		
 
-		btnProdutos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
+
 		
 		
 		btnProdutos.setBackground(new Color(210, 210, 210));
@@ -447,50 +472,50 @@ public class Main extends JFrame {
 		JPanel panelLateral1 = new JPanel();
 		panelLateral1.setLayout(null);
 		panelLateral1.setBackground(new Color(210, 210, 210));
-		panelLateral1.setBounds(0, 268, 17, 176);
+		panelLateral1.setBounds(0, 268, 17, 177);
 		contentPane.add(panelLateral1);
 		
 		JPanel panelLateral2 = new JPanel();
 		panelLateral2.setLayout(null);
 		panelLateral2.setBackground(new Color(210, 210, 210));
-		panelLateral2.setBounds(0, 70, 17, 176);
+		panelLateral2.setBounds(0, 70, 17, 177);
 		contentPane.add(panelLateral2);
 		
 		JPanel panelCard1 = new JPanel();
 		panelCard1.setVisible(false);
 		panelCard1.setBackground(new Color(210, 210, 210));
-		panelCard1.setBounds(59, 70, 230, 176);
+		panelCard1.setBounds(59, 70, 230, 177);
 		contentPane.add(panelCard1);
 		panelCard1.setLayout(null);
 		
 		JPanel panelCard2 = new JPanel();
 		panelCard2.setBackground(new Color(210, 210, 210));
-		panelCard2.setBounds(299, 70, 230, 176);
+		panelCard2.setBounds(299, 70, 230, 177);
 		contentPane.add(panelCard2);
 		
 		JPanel panelCard3 = new JPanel();
 		panelCard3.setBackground(new Color(210, 210, 210));
-		panelCard3.setBounds(539, 70, 230, 176);
+		panelCard3.setBounds(539, 70, 230, 177);
 		contentPane.add(panelCard3);
 		panelCard3.setVisible(false);
 		
 		JPanel panelCard4 = new JPanel();
 		panelCard4.setLayout(null);
 		panelCard4.setBackground(new Color(210, 210, 210));
-		panelCard4.setBounds(59, 268, 230, 176);
+		panelCard4.setBounds(59, 268, 230, 177);
 		contentPane.add(panelCard4);
 		panelCard4.setVisible(false);
 		panelCard4.setVisible(false);
 		
 		JPanel panelCard5 = new JPanel();
 		panelCard5.setBackground(new Color(210, 210, 210));
-		panelCard5.setBounds(299, 268, 230, 176);
+		panelCard5.setBounds(299, 268, 230, 177);
 		contentPane.add(panelCard5);
 		panelCard5.setVisible(false);
 		
 		JPanel panelCard6 = new JPanel();
 		panelCard6.setBackground(new Color(210, 210, 210));
-		panelCard6.setBounds(539, 268, 230, 176);
+		panelCard6.setBounds(539, 268, 230, 177);
 		contentPane.add(panelCard6);
 		panelCard2.setVisible(false);
 		panelCard6.setVisible(false);
@@ -498,13 +523,13 @@ public class Main extends JFrame {
 		JPanel panelLateralGrande = new JPanel();
 		panelLateralGrande.setLayout(null);
 		panelLateralGrande.setBackground(new Color(210, 210, 210));
-		panelLateralGrande.setBounds(815, 70, 17, 374);
+		panelLateralGrande.setBounds(815, 70, 17, 375);
 		contentPane.add(panelLateralGrande);
 		
 		JPanel panelMeioGrande = new JPanel();
 		panelMeioGrande.setLayout(null);
 		panelMeioGrande.setBackground(new Color(210, 210, 210));
-		panelMeioGrande.setBounds(64, 71, 705, 373);
+		panelMeioGrande.setBounds(64, 71, 705, 375);
 		contentPane.add(panelMeioGrande);
 		panelMeioGrande.setVisible(false);
 		
@@ -577,6 +602,7 @@ public class Main extends JFrame {
 				panelFornecedor.hide();
 				panelSobre.hide();
 				panelAdicionar.hide();
+				panelProdutos.hide();
 				
 				// Botão lado Grande voltando ao normal
 				
@@ -649,6 +675,7 @@ public class Main extends JFrame {
 						panelFornecedor.hide();
 						panelSobre.hide();
 						panelAdicionar.hide();
+						panelProdutos.hide();
 						
 						// Botão Card
 						btnLateralCard.setVisible(false);
@@ -721,6 +748,7 @@ public class Main extends JFrame {
 						// Sumir com todas as telas dos botões inferiores 
 						panelSobre.hide();
 						panelAdicionar.hide();
+						panelProdutos.hide();
 						
 						// Aparecer a tela fornecedor
 						panelFornecedor.show();			
@@ -756,10 +784,52 @@ public class Main extends JFrame {
 						
 						// Sumir com todas as telas dos botões inferiores	
 						panelSobre.hide();
+						panelProdutos.hide();
 						
 						
 						panelFornecedor.show();
 						panelAdicionar.show();
+						
+					}
+				});
+				
+				btnProdutos.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						// Fazer ele não aparecer ao abrir
+						//panelProdutos.setVisible(false);
+						
+						// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
+						panelCard1.hide();
+						panelCard2.hide();
+						panelCard3.hide();
+						panelCard4.hide();
+						panelCard5.hide();
+						panelCard6.hide();
+						panelMeioGrande.hide();
+						panelLateralGrande.show();
+						
+						// tela lateral CARD e GRANDE (aparecendo)
+						panelLateral2.show();
+						panelLateral1.show();
+
+						
+						// Aparecer os botões para puxar o CARD e Grande
+						
+						// botão CARD
+						btnLateralCard.setVisible(false);
+						btnMeioCard.setVisible(true);
+						
+						// botões do Grande
+						btnMeioGrande.setVisible(true);
+						btnLateralGrande.setVisible(false);
+						
+						// Sumir com todas as telas dos botões inferiores
+						panelFornecedor.hide();
+						panelSobre.hide();
+						panelAdicionar.hide();
+						
+						panelProdutos.show();
 						
 					}
 				});
@@ -796,6 +866,7 @@ public class Main extends JFrame {
 						panelFornecedor.hide();
 						panelSobre.hide();
 						panelAdicionar.hide();
+						panelProdutos.hide();
 						
 					}
 				});
@@ -833,6 +904,7 @@ public class Main extends JFrame {
 						// Sumir com todas as telas dos botões inferiores
 						panelFornecedor.hide();
 						panelAdicionar.hide();
+						panelProdutos.hide();
 						
 						// Aparecer a tela sobre
 						panelSobre.show();	
@@ -909,5 +981,4 @@ public class Main extends JFrame {
 		// alterar o texto de lblData
 		lblData.setText(now.format(format));
 	} // fim do atualizarData
-	
 } // fim da classe Main (principal)
