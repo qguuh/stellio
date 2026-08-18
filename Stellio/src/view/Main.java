@@ -56,6 +56,8 @@ public class Main extends JFrame {
 	// instalar o fornecedorController
 	private FornecedorController controller;
 	
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -109,45 +111,45 @@ public class Main extends JFrame {
 		JLabel lblID = new JLabel("ID");
 		lblID.setHorizontalAlignment(SwingConstants.CENTER);
 		lblID.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblID.setBounds(94, 55, 115, 25);
+		lblID.setBounds(111, 52, 115, 25);
 		panelAdicionar.add(lblID);
 		
 		JLabel lblNome_2 = new JLabel("Nome");
 		lblNome_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNome_2.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNome_2.setBounds(94, 86, 115, 25);
+		lblNome_2.setBounds(111, 83, 115, 25);
 		panelAdicionar.add(lblNome_2);
 		
 		JLabel lblTelefone_1 = new JLabel("Telefone");
 		lblTelefone_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTelefone_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblTelefone_1.setBounds(94, 121, 115, 25);
+		lblTelefone_1.setBounds(111, 118, 115, 25);
 		panelAdicionar.add(lblTelefone_1);
 		
 		JLabel lblEmail = new JLabel("E-mail");
 		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblEmail.setBounds(94, 156, 115, 25);
+		lblEmail.setBounds(111, 153, 115, 25);
 		panelAdicionar.add(lblEmail);
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(219, 156, 260, 25);
+		txtEmail.setBounds(236, 153, 260, 25);
 		panelAdicionar.add(txtEmail);
 		
 		txtFone = new JTextField();
 		txtFone.setColumns(10);
-		txtFone.setBounds(219, 121, 260, 25);
+		txtFone.setBounds(236, 118, 260, 25);
 		panelAdicionar.add(txtFone);
 		
 		txtNome = new JTextField();
 		txtNome.setColumns(10);
-		txtNome.setBounds(219, 86, 260, 25);
+		txtNome.setBounds(236, 83, 260, 25);
 		panelAdicionar.add(txtNome);
 		
 		txtID = new JTextField();
 		txtID.setColumns(10);
-		txtID.setBounds(219, 55, 87, 25);
+		txtID.setBounds(236, 52, 87, 25);
 		panelAdicionar.add(txtID);
 		
 		JButton btnBuscar = new JButton("");
@@ -158,13 +160,13 @@ public class Main extends JFrame {
 		btnBuscar.setIcon(new ImageIcon(Main.class.getResource("/img/loupe.png")));
 		btnBuscar.setBorderPainted(false);
 		btnBuscar.setBackground(new Color(210, 210, 210));
-		btnBuscar.setBounds(477, 86, 25, 25);
+		btnBuscar.setBounds(494, 83, 25, 25);
 		panelAdicionar.add(btnBuscar);
 		
 		// CRUD Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		JButton btnCriar = new JButton("");
-		btnCriar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnCriar.addActionListener(new ActionListener() {
+		JButton btnAdd = new JButton("");
+		btnAdd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 				// Crud Create
@@ -174,22 +176,43 @@ public class Main extends JFrame {
 				fornecedor.setFone(txtFone.getText());
 				fornecedor.setEmail(txtEmail.getText());
 				
+				txtNome.requestFocus();
+				
 				// Enviar o objeto para o controller
 				controller.Adicionar(fornecedor);
 				
 				// mensagem de confirmação
-				JOptionPane.showMessageDialog(null, "Fornecedor cadastrado com sucesso.");
+				JOptionPane.showMessageDialog(null, "Fornecedor adicionado com sucesso.");
+	            
+	            
 				} catch (Exception e2) {
 					System.out.println(e2);
+					JOptionPane.showMessageDialog(null, "Erro ao salvar ");
 				}
 			}
 		});
-		btnCriar.setBackground(new Color(210, 210, 210));
-		btnCriar.setIcon(new ImageIcon(Main.class.getResource("/img/add.png")));
-		btnCriar.setBounds(415, 187, 64, 64);
-		panelAdicionar.add(btnCriar);
+		btnAdd.setBackground(new Color(210, 210, 210));
+		btnAdd.setIcon(new ImageIcon(Main.class.getResource("/img/add-file.png")));
+		btnAdd.setBounds(455, 188, 64, 64);
+		panelAdicionar.add(btnAdd);
 		
-		btnCriar.setBorderPainted(false);
+		btnAdd.setBorderPainted(false);
+		
+		JButton btnEdit = new JButton("");
+		btnEdit.setIcon(new ImageIcon(Main.class.getResource("/img/written-paper.png")));
+		btnEdit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnEdit.setBorderPainted(false);
+		btnEdit.setBackground(new Color(210, 210, 210));
+		btnEdit.setBounds(455, 188, 64, 64);
+		panelAdicionar.add(btnEdit);
+		
+		JButton btnDelete = new JButton("");
+		btnDelete.setIcon(new ImageIcon(Main.class.getResource("/img/delete.png")));
+		btnDelete.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDelete.setBorderPainted(false);
+		btnDelete.setBackground(new Color(210, 210, 210));
+		btnDelete.setBounds(455, 188, 64, 64);
+		panelAdicionar.add(btnDelete);
 		
 
 
@@ -202,20 +225,18 @@ public class Main extends JFrame {
 		panelFornecedor.setLayout(null);
 		
 		JButton btnEditar = new JButton("");
+
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditar.setBackground(new Color(210, 210, 210));
-		btnEditar.setIcon(new ImageIcon(Main.class.getResource("/img/pencil.png")));
+		btnEditar.setIcon(new ImageIcon(Main.class.getResource("/img/draw.png")));
 		btnEditar.setBounds(296, 310, 64, 64);
 		panelFornecedor.add(btnEditar);
 		
 		JButton btnExcluir = new JButton("");
 		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExcluir.setBackground(new Color(210, 210, 210));
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnExcluir.setIcon(new ImageIcon(Main.class.getResource("/img/delete.png")));
+
+		btnExcluir.setIcon(new ImageIcon(Main.class.getResource("/img/trash.png")));
 		btnExcluir.setBounds(370, 310, 64, 64);
 		panelFornecedor.add(btnExcluir);
 		
@@ -243,7 +264,7 @@ public class Main extends JFrame {
 		JButton btnAdicionar = new JButton("");
 		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		btnAdicionar.setIcon(new ImageIcon(Main.class.getResource("/img/plus (1).png")));
+		btnAdicionar.setIcon(new ImageIcon(Main.class.getResource("/img/add.png")));
 		btnAdicionar.setBorderPainted(false);
 		btnAdicionar.setBackground(new Color(210, 210, 210));
 		btnAdicionar.setBounds(222, 310, 64, 64);
@@ -450,7 +471,7 @@ public class Main extends JFrame {
 		JLabel lblDatabase = new JLabel("");
 		lblDatabase.setBounds(330, 81, 31, 26);
 		panelInferior.add(lblDatabase);
-		lblDatabase.setIcon(new ImageIcon(Main.class.getResource("/img/storage (1).png")));
+		lblDatabase.setIcon(new ImageIcon(Main.class.getResource("/img/database.png")));
 		lblDatabase.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		lblMySQL = new JLabel("");
@@ -812,14 +833,120 @@ public class Main extends JFrame {
 						panelSobre.hide();
 						panelProdutos.hide();
 						
+						//sumir os botões
+						btnEdit.hide();
+						btnDelete.hide();
+						
+						// aparecer o botão editar
+						btnAdd.show();
+						
 						
 						panelFornecedor.show();
 						panelAdicionar.show();
 						
-						
-						
 					}
 				});
+						btnEditar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
+								panelCard1.hide();
+								panelCard2.hide();
+								panelCard3.hide();
+								panelCard4.hide();
+								panelCard5.hide();
+								panelCard6.hide();
+								panelMeioGrande.hide();
+								panelLateralGrande.show();
+								
+								// tela lateral CARD e GRANDE (aparecendo)
+								panelLateral2.show();
+								panelLateral1.show();
+
+								// Sumir a opção de ID e o botão de buscar (não necessário para este botão)
+								lblID.show();
+								txtID.show();
+								btnBuscar.show();
+								
+								// Aparecer os botões para puxar o CARD e Grande
+								
+								// botão CARD
+								btnLateralCard.setVisible(false);
+								btnMeioCard.setVisible(true);
+								
+								// botões do Grande
+								btnMeioGrande.setVisible(true);
+								btnLateralGrande.setVisible(false);
+								
+								// Sumir com todas as telas dos botões inferiores	
+								panelSobre.hide();
+								panelProdutos.hide();
+								
+								//sumir os botões
+								btnAdd.hide();
+								btnDelete.hide();
+								
+								// aparecer o botão editar
+								btnEdit.show();
+								
+								
+								panelFornecedor.show();
+								panelAdicionar.show();
+								
+							}
+						});
+						
+						btnExcluir.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
+								panelCard1.hide();
+								panelCard2.hide();
+								panelCard3.hide();
+								panelCard4.hide();
+								panelCard5.hide();
+								panelCard6.hide();
+								panelMeioGrande.hide();
+								panelLateralGrande.show();
+								
+								// tela lateral CARD e GRANDE (aparecendo)
+								panelLateral2.show();
+								panelLateral1.show();
+
+								// Sumir a opção de ID e o botão de buscar (não necessário para este botão)
+								lblID.show();
+								txtID.show();
+								btnBuscar.show();
+								
+								// Aparecer os botões para puxar o CARD e Grande
+								
+								// botão CARD
+								btnLateralCard.setVisible(false);
+								btnMeioCard.setVisible(true);
+								
+								// botões do Grande
+								btnMeioGrande.setVisible(true);
+								btnLateralGrande.setVisible(false);
+								
+								// Sumir com todas as telas dos botões inferiores	
+								panelSobre.hide();
+								panelProdutos.hide();
+								
+								//sumir os botões
+								btnAdd.hide();
+								btnEdit.hide();
+								
+								// aparecer o botão editar
+								btnDelete.show();
+								
+								
+								panelFornecedor.show();
+								panelAdicionar.show();
+								
+							}
+						});
+						
+						
+						
+
 				
 				btnProdutos.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
