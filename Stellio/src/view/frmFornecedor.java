@@ -16,10 +16,10 @@ import javax.swing.ImageIcon;
 public class frmFornecedor extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txtNome;
+	private JTextField txtFone;
+	private JTextField txtEmail;
+	private JTextField txtID;
 
 	/**
 	 * Launch the application.
@@ -72,29 +72,29 @@ public class frmFornecedor extends JDialog {
 		lblEmail.setBounds(140, 223, 46, 14);
 		getContentPane().add(lblEmail);
 		
-		textField = new JTextField();
-		textField.setBounds(196, 160, 232, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		txtNome = new JTextField();
+		txtNome.setBounds(196, 160, 232, 20);
+		getContentPane().add(txtNome);
+		txtNome.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(196, 191, 232, 20);
-		getContentPane().add(textField_1);
+		txtFone = new JTextField();
+		txtFone.setColumns(10);
+		txtFone.setBounds(196, 191, 232, 20);
+		getContentPane().add(txtFone);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(196, 222, 232, 20);
-		getContentPane().add(textField_2);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(196, 222, 232, 20);
+		getContentPane().add(txtEmail);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/plus.png")));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnAdicionar = new JButton("");
+		btnAdicionar.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/plus.png")));
+		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(346, 384, 46, 46);
-		getContentPane().add(btnNewButton);
+		btnAdicionar.setBounds(346, 384, 46, 46);
+		getContentPane().add(btnAdicionar);
 		
 		JButton btnEditar = new JButton("");
 		btnEditar.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/pencil.png")));
@@ -106,20 +106,20 @@ public class frmFornecedor extends JDialog {
 		btnExcluir.setBounds(458, 384, 46, 46);
 		getContentPane().add(btnExcluir);
 		
-		JButton lbl = new JButton("");
-		lbl.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/report.png")));
-		lbl.setBounds(514, 384, 46, 46);
-		getContentPane().add(lbl);
+		JButton btnRelatorio = new JButton("");
+		btnRelatorio.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/report.png")));
+		btnRelatorio.setBounds(514, 384, 46, 46);
+		getContentPane().add(btnRelatorio);
 		
 		JLabel lblID = new JLabel("ID");
 		lblID.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblID.setBounds(140, 130, 46, 14);
 		getContentPane().add(lblID);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(196, 129, 232, 20);
-		getContentPane().add(textField_3);
+		txtID = new JTextField();
+		txtID.setColumns(10);
+		txtID.setBounds(196, 129, 232, 20);
+		getContentPane().add(txtID);
 		
 		JButton btnBuscar = new JButton("");
 		btnBuscar.setIcon(new ImageIcon(frmFornecedor.class.getResource("/img/search (1).png")));

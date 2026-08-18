@@ -25,26 +25,18 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.FlatDarkLaf;
-import javax.swing.*;
 
 // Importar Database
 import database.Database;
-import javax.swing.JSplitPane;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
-import javax.swing.JSlider;
-import javax.swing.JSeparator;
-import javax.swing.JScrollBar;
-import javax.swing.JProgressBar;
-import javax.swing.JTable;
-import javax.swing.JSpinner;
-import javax.swing.JEditorPane;
-import javax.swing.JPasswordField;
-import javax.swing.JToggleButton;
-import javax.swing.JComboBox;
+import model.Fornecedor;
+
+// importar o modelo de dados
+import model.Fornecedor;
+
+// importar o controller
+import controller.FornecedorController;
+
+
 
 public class Main extends JFrame {
 
@@ -56,11 +48,14 @@ public class Main extends JFrame {
 	Database db = new Database();
 	private JLabel lblStatus;
 	private JLabel lblMySQL;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txtEmail;
+	private JTextField txtFone;
+	private JTextField txtNome;
+	private JTextField txtID;
 
+	// instalar o fornecedorController
+	private FornecedorController controller;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -87,6 +82,13 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		
+		// criar o objeto controller
+		controller = new FornecedorController();
+		
+		// Criar um objeto fornecedor
+		Fornecedor fornecedor = new Fornecedor();
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/img/dress  512px.png")));
@@ -104,11 +106,11 @@ public class Main extends JFrame {
 		panelAdicionar.setLayout(null);
 		panelAdicionar.hide();
 		
-		JLabel lblID_1 = new JLabel("ID");
-		lblID_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblID_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblID_1.setBounds(94, 55, 115, 25);
-		panelAdicionar.add(lblID_1);
+		JLabel lblID = new JLabel("ID");
+		lblID.setHorizontalAlignment(SwingConstants.CENTER);
+		lblID.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblID.setBounds(94, 55, 115, 25);
+		panelAdicionar.add(lblID);
 		
 		JLabel lblNome_2 = new JLabel("Nome");
 		lblNome_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -122,31 +124,31 @@ public class Main extends JFrame {
 		lblTelefone_1.setBounds(94, 121, 115, 25);
 		panelAdicionar.add(lblTelefone_1);
 		
-		JLabel lblEmail_1 = new JLabel("E-mail");
-		lblEmail_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmail_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblEmail_1.setBounds(94, 156, 115, 25);
-		panelAdicionar.add(lblEmail_1);
+		JLabel lblEmail = new JLabel("E-mail");
+		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblEmail.setBounds(94, 156, 115, 25);
+		panelAdicionar.add(lblEmail);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(219, 156, 260, 25);
-		panelAdicionar.add(textField);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(219, 156, 260, 25);
+		panelAdicionar.add(txtEmail);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(219, 121, 260, 25);
-		panelAdicionar.add(textField_1);
+		txtFone = new JTextField();
+		txtFone.setColumns(10);
+		txtFone.setBounds(219, 121, 260, 25);
+		panelAdicionar.add(txtFone);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(219, 86, 260, 25);
-		panelAdicionar.add(textField_2);
+		txtNome = new JTextField();
+		txtNome.setColumns(10);
+		txtNome.setBounds(219, 86, 260, 25);
+		panelAdicionar.add(txtNome);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(219, 55, 87, 25);
-		panelAdicionar.add(textField_3);
+		txtID = new JTextField();
+		txtID.setColumns(10);
+		txtID.setBounds(219, 55, 87, 25);
+		panelAdicionar.add(txtID);
 		
 		JButton btnBuscar = new JButton("");
 		btnBuscar.addActionListener(new ActionListener() {
@@ -159,16 +161,32 @@ public class Main extends JFrame {
 		btnBuscar.setBounds(477, 86, 25, 25);
 		panelAdicionar.add(btnBuscar);
 		
-		
+		// CRUD Create >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		JButton btnCriar = new JButton("");
 		btnCriar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCriar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+				// Crud Create
+				
+				// transferir os dados da tela para o objeto
+				fornecedor.setNome(txtNome.getText());
+				fornecedor.setFone(txtFone.getText());
+				fornecedor.setEmail(txtEmail.getText());
+				
+				// Enviar o objeto para o controller
+				controller.Adicionar(fornecedor);
+				
+				// mensagem de confirmação
+				JOptionPane.showMessageDialog(null, "Fornecedor cadastrado com sucesso.");
+				} catch (Exception e2) {
+					System.out.println(e2);
+				}
 			}
 		});
 		btnCriar.setBackground(new Color(210, 210, 210));
 		btnCriar.setIcon(new ImageIcon(Main.class.getResource("/img/add.png")));
-		btnCriar.setBounds(586, 184, 64, 64);
+		btnCriar.setBounds(415, 187, 64, 64);
 		panelAdicionar.add(btnCriar);
 		
 		btnCriar.setBorderPainted(false);
@@ -305,7 +323,7 @@ public class Main extends JFrame {
 		lblAuthor.setBounds(149, 212, 409, 23);
 		panelSobre.add(lblAuthor);
 		
-		JLabel lblVersao = new JLabel("Versão: 1.0");
+		JLabel lblVersao = new JLabel("Versão: 1.1");
 		lblVersao.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVersao.setFont(new Font("NSimSun", Font.BOLD, 20));
 		lblVersao.setBounds(149, 247, 409, 23);
@@ -713,7 +731,7 @@ public class Main extends JFrame {
 				
 				// ============================================================================
 				//                         BOTÕES INFERIORES CLICÁVEIS
-				//						  BOTÕES FUNCIONAIS NA LINHA 260
+				//						  BOTÕES FUNCIONAIS NA LINHA 333
 				// ============================================================================
 				
 				btnFornecedores.addActionListener(new ActionListener() {
@@ -751,7 +769,11 @@ public class Main extends JFrame {
 						panelProdutos.hide();
 						
 						// Aparecer a tela fornecedor
-						panelFornecedor.show();			
+						panelFornecedor.show();	
+						
+						/*frmFornecedor fornecedor = new frmFornecedor();
+						fornecedor.setVisible(true); */
+						
 						}
 				});
 				
@@ -771,6 +793,10 @@ public class Main extends JFrame {
 						panelLateral2.show();
 						panelLateral1.show();
 
+						// Sumir a opção de ID e o botão de buscar (não necessário para este botão)
+						lblID.hide();
+						txtID.hide();
+						btnBuscar.hide();
 						
 						// Aparecer os botões para puxar o CARD e Grande
 						
@@ -789,6 +815,8 @@ public class Main extends JFrame {
 						
 						panelFornecedor.show();
 						panelAdicionar.show();
+						
+						
 						
 					}
 				});
@@ -949,6 +977,7 @@ public class Main extends JFrame {
 			lblMySQL.setText("MySQL Conectado");
 			lblStatus.setForeground(new Color(0, 174, 0));
 			lblStatus.setBounds(459, 80, 25, 26);
+			lblDatabase.setBounds(339, 81, 31, 26);
 		} else {
 			//System.out.println("Erro na conexão");
 			lblMySQL.setText("MySQL Desconectado");
