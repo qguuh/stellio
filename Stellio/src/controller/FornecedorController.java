@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 // Importação de database
@@ -50,5 +51,50 @@ public class FornecedorController {
 	
 	// Fim CRUD Create =========================================================
 	
+	// ==================================================================================
+	// CRUD Read - Buscar fornecedor >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	// ==================================================================================
 	
+	public Fornecedor buscar(String nome) {
+		try {
+			String sql = """
+				select idFornecedor, nome, fone, email
+				from fornecedores
+				where nome like ?
+			""";
+			// Iniciar um objeto fornecedor como nulo
+			Fornecedor fornecedor = null;
+			
+			//JDBC (connection e PreparedStatement)
+			Connection con = database.conectar();
+			PreparedStatement stmt = con.prepareStatement(sql);
+			
+			// setar a consulta
+			stmt.setString(1, "%" + nome + "%");
+			
+			//JDBC (ResultSet) = "Trazer os dados do banco"
+			ResultSet rs = stmt.executeQuery();
+			
+			// se existir um fornecedor com o nome pesquisado
+			if (rs.next()) {
+				// setar o model
+				fornecedor = new Fornecedor();
+				fornecedor.setIdFornecedor(rs.getInt("idFornecedor"));
+				fornecedor.setNome(rs.getString("nome"));
+				fornecedor.setFone(rs.getString("fone"));
+				fornecedor.setEmail(rs.getString("email"));
+			}
+
+			// Fechar as conexões
+			rs.close();
+			stmt.close();
+			con.close();
+			
+			return fornecedor;
+			
+			} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
 }
