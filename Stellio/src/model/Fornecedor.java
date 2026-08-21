@@ -33,6 +33,12 @@ public class Fornecedor {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getEditmail() {
+		return email;
+	}
+	public void setEditmail(String email) {
+		this.email = email;
+	}
 	
 	
 	

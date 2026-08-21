@@ -97,4 +97,34 @@ public class FornecedorController {
 			return null;
 		}
 	}
+	
+	// =====================================================
+	// Editar Fornecedor (Crud edit)
+	// =====================================================
+
+	public void Editar(Fornecedor fornecedor) throws SQLException {
+		// Comando sql (passo1)
+		String sql = """	
+				update fornecedores
+					set nome = 	?, fone = ?, email = ?
+					where idFornecedor = ?
+				""";
+		// Abrir conexão com o banco (passo 2)
+		Connection con = database.conectar();
+		
+		// executar o comando sql (passo 3)
+		PreparedStatement stmt = con.prepareStatement(sql);
+		// 1, 2, 3 = (?,?,?)
+		stmt.setString(1, fornecedor.getNome());
+		stmt.setString(2, fornecedor.getFone());
+		stmt.setString(3, fornecedor.getEditmail());
+		stmt.setInt(4, fornecedor.getIdFornecedor());
+		stmt.executeUpdate();
+		
+		// Fechar a conexão (passo 4)
+		stmt.close();
+		con.close();
+	} 
+	
+	// Fim CRUD EDIT =========================================================
 }
