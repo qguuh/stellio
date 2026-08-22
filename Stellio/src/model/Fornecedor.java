@@ -6,6 +6,7 @@ public class Fornecedor {
 	private String nome;
 	private String fone;
 	private String email;
+
 	
 	// gerar getters e setters de forma automática
 	// botão direito -> source -> generate getters and setters

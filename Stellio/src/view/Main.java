@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URI;
@@ -32,8 +34,6 @@ import controller.FornecedorController;
 import database.Database;
 import model.Fornecedor;
 import utils.Validador;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class Main extends JFrame {
 
@@ -54,6 +54,9 @@ public class Main extends JFrame {
 	private FornecedorController controller;
 	private JTextField txtBuscarNome;
 	private JTextField txtEditEmail;
+	
+	
+	private String modo = ""; // "editar" ou "excluir"
 
 	/**
 	 * Launch the application.
@@ -79,6 +82,8 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		
+		
 
 		// criar o objeto controller
 		controller = new FornecedorController();
@@ -106,7 +111,7 @@ public class Main extends JFrame {
 		JLabel lblID = new JLabel("ID");
 		lblID.setHorizontalAlignment(SwingConstants.CENTER);
 		lblID.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblID.setBounds(319, 13, 87, 25);
+		lblID.setBounds(319, 13, 87, 32);
 		panelAdicionar.add(lblID);
 
 		JLabel lblNome = new JLabel("Nome:");
@@ -194,88 +199,6 @@ public class Main extends JFrame {
 		txtID.setBounds(319, 48, 87, 32);
 		panelAdicionar.add(txtID);
 
-		JButton btnSearch = new JButton("");
-
-		
-		
-		// ==================================================================================
-		// CRUD Read - Buscar fornecedor >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		// ==================================================================================
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				// Validação
-				if (txtBuscarNome.getText().isBlank()) {
-					JOptionPane.showMessageDialog(null, "Informe o nome do Fornecedor.");
-					txtBuscarNome.requestFocus();
-				} else {
-					// Lógica principal
-					
-					try {
-						// Capturar o nome para busca
-						
-						String nome = txtBuscarNome.getText();
-						
-						// Instanciar (Criar) o fornecedor executando a busca através do controller
-						Fornecedor fornecedor = controller.buscar(nome);
-						
-						// se existir um fornecedor cadastrado
-						
-						if (fornecedor != null) {
-							// Setar os campos do formulário
-							txtID.setText(String.valueOf(fornecedor.getIdFornecedor()));
-							txtBuscarNome.setText(fornecedor.getNome());
-							txtFone.setText(fornecedor.getFone());
-							txtEmail.setText(fornecedor.getEmail());
-							
-							// Fazer aparecer os campos após buscar o nome
-							lblID.show();
-							lblFone.show();
-							lblEmail.show();
-							
-							txtEditEmail.hide();
-							txtID.show();
-							txtBuscarNome.show();
-							txtFone.show();
-							txtEmail.show();
-							
-							
-							// O comando abaixo faz o campo não poder ser editado
-							txtID.setEditable(false);
-							txtFone.setEditable(false);
-							txtEmail.setEditable(false);
-							
-							// Fazer os campos ficar centralizado com os outros campos
-							txtBuscarNome.setBounds(200, 90, 342, 32);
-							lblNome.setBounds(85, 90, 115, 32);
-							//wait(100);
-							btnSearch.setBounds(540, 90, 25, 32);
-							
-						} else {
-							
-							// O comando abaixo resolve o bug de aparecer a tela de erro 2 vezes caso pressione [ENTER]
-							panelAdicionar.requestFocus();
-							
-							JOptionPane.showInternalMessageDialog(null, "Fornecedor não cadastrado.");
-							limparCampos();
-						}
-						
-					} catch (Exception e2) {
-						System.out.println(e2);
-					}
-				}
-				
-				
-			}
-		});
-		// FIM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		
-		btnSearch.setIcon(new ImageIcon(Main.class.getResource("/img/loupe.png")));
-		btnSearch.setBorderPainted(false);
-		btnSearch.setBackground(new Color(210, 210, 210));
-		btnSearch.setBounds(542, 90, 25, 32);
-		panelAdicionar.add(btnSearch);
-
 		// ==================================================================================
 		// CRUD Create - Cadastrar fornecedor >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		// ==================================================================================
@@ -352,7 +275,7 @@ public class Main extends JFrame {
 		
 		
 		// ==================================================================================
-		// CRUD Edit - Editar fornecedor >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		// CRUD Update - Editar fornecedor >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		// ==================================================================================
 		JButton btnEdit = new JButton("");
 		btnEdit.addActionListener(new ActionListener() {
@@ -369,13 +292,13 @@ public class Main extends JFrame {
 					// Lógica principal se os campos obrigatórios estivarem preenchidos
 					
 					try {
-						// Crud Create
+						// Crud Update
 
 						// transferir os dados da tela para o objeto
 						fornecedor.setNome(txtNome.getText());
 						fornecedor.setFone(txtFone.getText());
 						fornecedor.setEmail(txtEditEmail.getText());
-						txtID.setText(String.valueOf(txtID.getText()));
+						fornecedor.setIdFornecedor(Integer.parseInt(txtID.getText()));
 
 						txtNome.requestFocus();
 
@@ -390,12 +313,12 @@ public class Main extends JFrame {
 
 					} catch (Exception e2) {
 						System.out.println(e2);
-						JOptionPane.showMessageDialog(null, "Erro ao Editar ");
+						JOptionPane.showMessageDialog(null, "Erro ao Editar.");
 					}
 				}				
 			}
 		});
-		// FIM DO CRUD EDIT >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		// FIM DO CRUD Update >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
 		// ==================================================================================
 		// ENVIAR OS DADOS AO PRECIONAR ENTER (FORMA ALTERNATIVA)
@@ -419,8 +342,62 @@ public class Main extends JFrame {
 		btnEdit.setBackground(new Color(210, 210, 210));
 		btnEdit.setBounds(631, 188, 64, 64);
 		panelAdicionar.add(btnEdit);
+		
+		
+		// ==================================================================================
+		// CRUD Delete - Excluir fornecedor >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		// ==================================================================================
 
 		JButton btnDelete = new JButton("");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+						//Validação de campos obrigatórios
+						if (txtID.getText().isBlank()) {
+							JOptionPane.showMessageDialog(null, "Preencha o ID do fornecedor.");
+							txtNome.requestFocus();
+						/*} else if (txtFone.getText().isBlank()) {
+							JOptionPane.showMessageDialog(null, "Preencha o telefone do fornecedor.");
+							txtFone.requestFocus();*/
+						} else {
+							// Lógica principal se os campos obrigatórios estivarem preenchidos
+							
+							
+					        // Janela de confirmação
+					        int resposta = JOptionPane.showConfirmDialog(
+					                null,
+					                "Tem certeza que deseja excluir o fornecedor \"" + txtNome.getText() + "\"?",
+					                "Confirmar exclusão",
+					                JOptionPane.YES_NO_OPTION,
+					                JOptionPane.WARNING_MESSAGE
+					        );
+							
+					        if (resposta == JOptionPane.YES_OPTION) {
+
+					            try {
+					                int idFornecedor = Integer.parseInt(txtID.getText());
+
+					                boolean sucesso = controller.Excluir(idFornecedor);
+
+					                if (sucesso) {
+					                    JOptionPane.showMessageDialog(null, "Fornecedor excluído com sucesso.");
+					                    limparCampos();
+					                } else {
+					                    JOptionPane.showMessageDialog(null, "Não foi possível excluir. Fornecedor não encontrado.");
+					                }
+
+					            } catch (NumberFormatException ex) {
+					                JOptionPane.showMessageDialog(null, "ID inválido.");
+					            }
+					        }
+							
+							
+							
+						}				
+					}
+				});
+				// FIM DO CRUD Update >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 		btnDelete.setIcon(new ImageIcon(Main.class.getResource("/img/delete.png")));
 		btnDelete.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnDelete.setBorderPainted(false);
@@ -433,6 +410,134 @@ public class Main extends JFrame {
 		txtBuscarNome.setColumns(10);
 		txtBuscarNome.setBounds(200, 90, 342, 32);
 		panelAdicionar.add(txtBuscarNome);
+		
+				JButton btnSearch = new JButton("");
+				
+						
+						
+						// ==================================================================================
+						// CRUD Read - Buscar fornecedor >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+						// ==================================================================================
+						btnSearch.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+								// Validação
+								if (txtBuscarNome.getText().isBlank()) {
+									JOptionPane.showMessageDialog(null, "Informe o nome do Fornecedor.");
+									txtBuscarNome.requestFocus();
+								} else {
+									// Lógica principal
+									
+									try {
+										// Capturar o nome para busca
+										
+										String nome = txtBuscarNome.getText();
+										
+										// Instanciar (Criar) o fornecedor executando a busca através do controller
+										Fornecedor fornecedor = controller.buscar(nome);
+										
+										// se existir um fornecedor cadastrado
+										
+										if (fornecedor != null) {
+											// Setar os campos do formulário
+											txtID.setText(String.valueOf(fornecedor.getIdFornecedor()));
+											txtBuscarNome.setText(fornecedor.getNome());
+											txtFone.setText(fornecedor.getFone());
+											txtEmail.setText(fornecedor.getEmail());
+											
+								            if (modo.equals("editar")) {
+								            	panelAdicionar.requestFocus();
+								            	
+								                txtID.setEditable(false);
+								                txtBuscarNome.setEditable(true);
+								                txtFone.setEditable(true);
+								                txtEmail.setEditable(true);
+								                
+								                
+								                btnEdit.setVisible(true);
+								                btnDelete.setVisible(false);
+								                
+								              
+								                
+								            } else if (modo.equals("excluir")) {
+								            	panelAdicionar.requestFocus();
+								            	
+
+								                txtID.setEditable(false);
+								                txtBuscarNome.setEditable(true);
+								                txtFone.setEditable(false);
+								                txtEmail.setEditable(false);
+								                
+								                
+								                btnDelete.setVisible(true);
+								                btnEdit.setVisible(false);
+								                
+								            } else if (modo.equals("Buscar")) {
+								            	panelAdicionar.requestFocus();
+
+								            	
+								                txtID.setEditable(false);
+								                txtBuscarNome.setEditable(true);
+								                txtFone.setEditable(false);
+								                txtEmail.setEditable(false);
+								                
+								                
+								                btnDelete.setVisible(false);
+								                btnEdit.setVisible(false);
+								            } else {
+								            	System.out.println("Erro ao rodar 'modo.equals'");
+								            }
+											
+											// Fazer aparecer os campos após buscar o nome
+											lblID.show();
+											lblFone.show();
+											lblEmail.show();
+											
+											txtEditEmail.hide();
+											txtID.show();
+											txtBuscarNome.show();
+											txtFone.show();
+											txtEmail.show();
+											
+											
+
+											
+											// Fazer os campos ficar centralizado com os outros campos (Nome)
+											txtBuscarNome.setBounds(200, 90, 342, 32);
+											lblNome.setBounds(85, 90, 115, 32);
+											//wait(100);
+											btnSearch.setBounds(540, 90, 25, 32);
+											
+											// Fazer os campos ficar centralizado com os outros campos (ID)
+											txtID.setBounds(319, 48, 87, 32);
+											lblID.setBounds(319, 13, 87, 32);
+											
+										} else {
+											
+											// O comando abaixo resolve o bug de aparecer a tela de erro 2 vezes caso pressione [ENTER]
+											panelAdicionar.requestFocus();
+											
+											JOptionPane.showInternalMessageDialog(null, "Fornecedor não cadastrado.");
+											txtBuscarNome.requestFocus();
+											limparCampos();
+											
+										}
+										
+									} catch (Exception e2) {
+										System.out.println(e2);
+									}
+								}
+								
+								
+							}
+						});
+						// FIM >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+						
+						btnSearch.setIcon(new ImageIcon(Main.class.getResource("/img/loupe.png")));
+						btnSearch.setBorderPainted(false);
+						btnSearch.setBackground(new Color(210, 210, 210));
+						btnSearch.setBounds(542, 90, 25, 32);
+						panelAdicionar.add(btnSearch);
 
 		JPanel panelFornecedor = new JPanel();
 		panelFornecedor.setBackground(new Color(210, 210, 210));
@@ -565,7 +670,7 @@ public class Main extends JFrame {
 		lblAuthor.setBounds(149, 212, 409, 23);
 		panelSobre.add(lblAuthor);
 
-		JLabel lblVersao = new JLabel("Versão: 1.5");
+		JLabel lblVersao = new JLabel("Versão: 1.6");
 		lblVersao.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVersao.setFont(new Font("NSimSun", Font.BOLD, 20));
 		lblVersao.setBounds(149, 247, 409, 23);
@@ -984,6 +1089,7 @@ public class Main extends JFrame {
 
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
 				panelCard1.hide();
 				panelCard2.hide();
@@ -1036,10 +1142,7 @@ public class Main extends JFrame {
 				lblNome.setBounds(85, 90, 115, 32);
 				btnSearch.setBounds(540, 90, 25, 32);
 				
-				// O comando abaixo faz o campo poder ser editado
-				txtID.setEditable(true);
-				txtFone.setEditable(true);
-				txtEmail.setEditable(true);
+
 
 				// aparecer o botão editar
 				btnAdd.show();
@@ -1053,6 +1156,8 @@ public class Main extends JFrame {
 		});
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				modo = "editar";
+				
 				// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
 				panelCard1.hide();
 				panelCard2.hide();
@@ -1066,12 +1171,6 @@ public class Main extends JFrame {
 				// tela lateral CARD e GRANDE (aparecendo)
 				panelLateral2.show();
 				panelLateral1.show();
-
-				// Sumir a opção de ID e o botão de buscar (não necessário para este botão)
-				lblID.show();
-				txtID.show();
-				btnSearch.hide();
-				txtBuscarNome.hide();
 				
 
 				// Aparecer os botões para puxar o CARD e Grande
@@ -1092,34 +1191,37 @@ public class Main extends JFrame {
 				btnAdd.hide();
 				btnDelete.hide();
 				
-				// Fazer aparecer os campos após buscar o nome
-				lblID.show();
-				lblFone.show();
-				lblEmail.show();
+				// Aparecer Somente o ID ao clicar
+				lblID.hide();
+				lblNome.hide();
+				lblFone.hide();
+				lblEmail.hide();
 				
-				txtID.show();
-				txtNome.show();
-				txtFone.show();
+				txtID.hide();
+				
+				txtBuscarNome.hide();
+				btnSearch.hide();
+				txtNome.hide();
+				txtFone.hide();
 				txtEmail.hide();
-				txtEditEmail.show();
+				txtEditEmail.hide();
 				
 				
+				lblNome.show();
+				lblNome.setBounds(78, 135, 115, 32);
+				txtBuscarNome.show();
+				txtBuscarNome.setBounds(200, 135, 342, 32);
 				
-				// Fazer os campos ficar centralizado com os outros campos
-				//txtNome.setBounds(200, 90, 342, 32);
-				lblNome.setBounds(85, 90, 115, 32);
-				btnSearch.setBounds(540, 90, 25, 32);
+				btnSearch.show();
+				btnSearch.setBounds(542, 135, 25, 32);
 				
-				// O comando abaixo faz o campo poder ser editado
-				txtID.setEditable(true);
-				txtFone.setEditable(true);
-				txtEmail.setEditable(true);
 
-				// aparecer o botão editar
-				btnEdit.show();
+				// aparecer o botão editar (aparece somente após achar o ID cadastrado)
+				btnEdit.hide();
 
 				panelFornecedor.show();
 				panelAdicionar.show();
+				txtBuscarNome.requestFocus();
 				limparCampos();
 
 			}
@@ -1127,6 +1229,9 @@ public class Main extends JFrame {
 
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				modo = "excluir";
+				
+				
 				// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
 				panelCard1.hide();
 				panelCard2.hide();
@@ -1141,11 +1246,7 @@ public class Main extends JFrame {
 				panelLateral2.show();
 				panelLateral1.show();
 
-				// Sumir a opção de ID e o botão de buscar (não necessário para este botão)
-				lblID.show();
-				txtID.show();
-				btnSearch.hide();
-				txtBuscarNome.hide();
+
 
 				// Aparecer os botões para puxar o CARD e Grande
 
@@ -1165,39 +1266,56 @@ public class Main extends JFrame {
 				btnAdd.hide();
 				btnEdit.hide();
 				
-				// Fazer aparecer os campos após buscar o nome
-				lblID.show();
-				lblFone.show();
-				lblEmail.show();
+				// Aparecer Somente o ID ao clicar
+				lblID.hide();
+				lblNome.hide();
+				lblFone.hide();
+				lblEmail.hide();
 				
-				txtID.show();
-				txtNome.show();
-				txtFone.show();
-				txtEmail.show();
+				txtID.hide();
+
+				
+				txtBuscarNome.hide();
+				btnSearch.hide();
+				txtNome.hide();
+				txtFone.hide();
+				txtEmail.hide();
+				txtEditEmail.hide();
+
+				
+				lblNome.show();
+				lblNome.setBounds(78, 135, 115, 32);
+				txtBuscarNome.show();
+				txtBuscarNome.setBounds(200, 135, 342, 32);
+				
+				btnSearch.show();
+				btnSearch.setBounds(542, 135, 25, 32);
+				
+				
 				
 				// Fazer os campos ficar centralizado com os outros campos
 				//txtBuscarNome.setBounds(200, 90, 342, 32);
-				lblNome.setBounds(85, 90, 115, 32);
-				btnSearch.setBounds(540, 90, 25, 32);
-				
-				// O comando abaixo faz o campo poder ser editado
-				txtID.setEditable(true);
-				txtFone.setEditable(true);
-				txtEmail.setEditable(true);
 
-				// aparecer o botão editar
-				btnDelete.show();
+				
+
+
+				// aparecer o botão editar (Botão só aparece quando acha o ID do fornecedor)
+				btnDelete.hide();
 
 				panelFornecedor.show();
 				panelAdicionar.show();
+				txtBuscarNome.requestFocus();
 				limparCampos();
+				
+
 
 			}
 		});
 		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				modo = "Buscar";
+				
 				
 				// Tela meio CARD e GRANDE (escondido) E Laterais aparecendo
 				panelCard1.hide();
@@ -1224,7 +1342,6 @@ public class Main extends JFrame {
 				txtEmail.hide();
 				txtEditEmail.hide();
 				
-				
 				txtNome.hide();
 				
 				
@@ -1232,7 +1349,7 @@ public class Main extends JFrame {
 				lblNome.setBounds(78, 135, 115, 32);
 				txtBuscarNome.show();
 				txtBuscarNome.setBounds(200, 135, 342, 32);
-				txtBuscarNome.requestFocus();
+				
 				btnSearch.show();
 				btnSearch.setBounds(542, 135, 25, 32);
 
@@ -1259,30 +1376,14 @@ public class Main extends JFrame {
 
 				panelFornecedor.show();
 				panelAdicionar.show();
+				txtBuscarNome.requestFocus();
 				limparCampos();
 				
 				
 				
 				
 				
-				// =====================================================================================
-				// FUNÇÃO PARA BUSCAR O NOME AO APERTAR O ENTER
-				// =====================================================================================
-				txtBuscarNome.addKeyListener(new KeyAdapter() {
-					@Override
-					public void keyPressed(KeyEvent e) {
-						
-						if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-							
-							// Tirar o foco no bloco de texto
-							panelAdicionar.requestFocus();
-							
-							// Fazer todo o comando do CRUD READ
-							btnSearch.doClick();
-							
-						}
-					}
-				});
+
 		
 			}
 		});
@@ -1401,6 +1502,25 @@ public class Main extends JFrame {
 				panelSobre.show();
 			}
 		});
+		
+		
+		// =====================================================================================
+		// FUNÇÃO PARA BUSCAR O NOME AO APERTAR O ENTER
+		// =====================================================================================
+		txtBuscarNome.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					
+					// Fazer todo o comando do CRUD READ
+					btnSearch.doClick();
+					
+					// Tirar o foco no bloco de texto
+					txtBuscarNome.requestFocus();
+				}
+			}
+		});
 
 		btnLateralGrande.setBounds(777, 232, 32, 49);
 		contentPane.add(btnLateralGrande);
@@ -1445,6 +1565,7 @@ public class Main extends JFrame {
 		}
 
 	} // fim do public main (constuctor)
+
 
 	// ==================================================================================
 	// Limpar Campos
